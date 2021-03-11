@@ -82,6 +82,11 @@ table {
   margin-left: 20%;
   margin-top: 15px;
 }
+.card {
+  width: 40%;
+  margin-left: 20%;
+  margin-top: 15px;
+}
 @media (max-width: 676px){
   #project-form {
     margin-left: 48%;
