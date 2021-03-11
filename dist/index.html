@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/dist/assets/stylesheets/main.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <title>Document</title>
+  <title>Todo list</title>
 </head>
 <body>
   <!-- <i class="fas text-primary  fa-book-open"></i>
@@ -16,33 +16,50 @@
   <div class="sidenav">
     <div class="sidenav-content">
      <div class="dropdown">
-      <button class="dropbtn text-primary"> projects</button>
+      <button  class="dropbtn text-primary "> projects</button>
       <div class="dropdown-content ">
-        <button>+</button>
+        <button id="dp-btn">+</button>
       </div>
     </div>
-    <button class="btn-1 ml-5">welcome</button>
+    <button class="btn-1 " id="btnOne">welcome</button>
     </div>
   </div>
-  <form id="project-form" class=" mx-auto bg-grey">
+  <div class=" section-2 d-none" id="tableone">
+    <table  class="w-75 " >
+      <tr>
+        <th class="">Title</th>
+        <th>description</th>
+        <th>date</th> 
+      </tr>
+       <tr>
+        <!-- <td>Jill</td>
+        <td>Smith</td>
+        <td>50</td> -->
+      </tr>
+      <!-- <tr>
+      </tr>  -->
+    </table>
+  </div>
+  <div id="section-1"></div>
+  <form id="project-form" class=" bg-grey d-none">
     <h1 class="text-center">Add a project</h1>
     <div class="form-group">
       <label for="title" class="ml-5">Title</label>
       <input type="text" id="title" class="form-control mx-auto">
     </div>
-    <div class="form-group">
-      <label for="author" class="ml-5">description</label>
+    <!-- <div class="form-group">
+      <label for="description" class="ml-5">description</label>
       <input type="text" id="description" class="form-control mx-auto">
-    </div>
-    <div class="form-group">
-      <label for="nbpages" class="ml-5">Date</label>
-      <input type="date" id="Date" class="form-control mx-auto">
-    </div>
-    <input type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto">
+    </div> -->
+    <!-- <div class="form-group">
+      <label for="date" class="ml-5">Date</label>
+      <input type="date" id="date" class="form-control mx-auto">
+    </div> -->
+    <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto mt-5">
   </form>
   <script type="text/javascript" src="main.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
