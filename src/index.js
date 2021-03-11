@@ -1,6 +1,7 @@
 class Project {
-  constructor(name) {
+  constructor(name,number) {
     this.name = name;
+    this.number = number;
   }
 }
 class Task {
@@ -10,6 +11,21 @@ class Task {
     this.description = date;
   }
 }
+window.removeProject=(projectNumber)=> {
+  const projects = UI.getProjectName();
+  projects.forEach((project, index) => {
+    if (project.number === projectNumber) {
+      projects.splice(index, 1);
+    }
+  });
+  document.getElementById(projectNumber).parentNode.remove();
+  localStorage.setItem('projects', JSON.stringify(projects));
+  UI.addProjectName();
+  showAlert('Book Removed', 'success');
+  setTimeout(() => {
+    window.location.reload();
+  }, 3000);
+};
 class UI {
   static getProjectName() {
     let projects;
@@ -59,17 +75,23 @@ class UI {
 
   static addProjectName() {
     const sideNave = document.getElementById('sideNav')
+    sideNave.innerHTML = ''
     const storedProjects = UI.getProjectName() 
     storedProjects.forEach(project => {
       const nextElement = document.createElement('div')
-      nextElement.innerHTML = project.name
-      nextElement.classList.add('text-white','text-center')
+      nextElement.innerHTML = project.name + '<i class="fas ml-5 fa-trash-alt" ></i>'
+      nextElement.classList.add('text-white','text-center','mt-4')
+      nextElement.addEventListener('click',()=>{
+
+      })
       sideNave.appendChild(nextElement)
+      nextElement.children[0].id=project.number
+      nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
     });
 
   }
+  
 }
-const defaultName = new Project('welcome');
 const dpBtn = document.getElementById('dp-btn');
 let visible = false;
 dpBtn.addEventListener('click', () => {
@@ -101,7 +123,7 @@ welcomBtn.addEventListener('click', () => {
     visibleTwo = true;
 
     const addTaskBtn = document.createElement('button');
-    addTaskBtn.innerHTML = '+ Add task';
+    addTaskBtn.innerHTML = 'add task';
     addTaskBtn.style.marginTop = '15px';
     addTaskBtn.style.marginLeft = '20%';
     addTaskBtn.id = 'addTask';
@@ -127,16 +149,10 @@ document.querySelector('#project-form').addEventListener('submit', (e) => {
       window.location.reload();
     }, 3000);
   } else {
-    const project = new Project(title);
+    const project = new Project(title, UI.countProject());
     UI.storeProjectName(project);
     UI.addProjectName()
-    // // Instatiate book
-    // const count = countBook();
-    // const book = new Book(title, author, nbpages, count, false, isbn);
-    // // Add book to store
-    // storeBook(book);
-    // showAlert('Book Added', 'success');
-    // clearFields();
-    // displayBooks(book);
   }
 });
+document.addEventListener('DOMContentLoaded', UI.addProjectName());
+// localStorage.clear()
