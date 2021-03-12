@@ -82,8 +82,9 @@ table {
   margin-left: 20%;
   margin-top: 15px;
 }
-.card {
-  width: 40%;
+
+.add-task {
+  cursor: pointer;
   margin-left: 20%;
   margin-top: 15px;
 }
