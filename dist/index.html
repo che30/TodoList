@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/dist/assets/stylesheets/main.css">
+  <link rel="stylesheet" href="./dist/assets/stylesheets/main.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <title>Todo list</title>
@@ -54,14 +54,22 @@
       <label for="title" class="ml-5">Title</label>
       <input type="text" id="title" class="form-control mx-auto">
     </div>
-    <!-- <div class="form-group">
+    <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto mt-5">
+  </form>
+  <form id="task-form" class=" bg-grey d-none">
+    <h1 class="text-center">Add a project</h1>
+    <div class="form-group">
+      <label for="title" class="ml-5">Title</label>
+      <input type="text" id="title" class="form-control mx-auto">
+    </div>
+   <div class="form-group">
       <label for="description" class="ml-5">description</label>
       <input type="text" id="description" class="form-control mx-auto">
-    </div> -->
-    <!-- <div class="form-group">
+    </div> 
+     <div class="form-group">
       <label for="date" class="ml-5">Date</label>
       <input type="date" id="date" class="form-control mx-auto">
-    </div> -->
+    </div> 
     <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto mt-5">
   </form>
   <script type="text/javascript" src="main.js"></script>

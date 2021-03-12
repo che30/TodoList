@@ -27,6 +27,7 @@ export default class UI {
 
     return currentNumber;
   }
+
   static showAlert(message, className) {
     const div = document.createElement('div');
     div.className = `alert alert-${className} text-center`;
@@ -51,30 +52,67 @@ export default class UI {
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify('tasks'));
   }
-
+  static contain (){
+    const sectionTwo = document.getElementById('tableone');
+    const contaniner = document.createElement('div')
+    contaniner.id= 'contain'
+    sectionTwo.appendChild(contaniner)
+    return sectionTwo
+  }
+  static show (){
+    const sored = UI.getProjectName()
+    const cont = UI.contain()
+    const cont1 = document.getElementById('contain')
+    cont.innerHTML = ''
+     sored.forEach(element => {
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('text-center','proj');
+    newDiv.id ='newDiv'
+    newDiv.innerHTML = element.name
+    
+    const addBtn = document.createElement('div');
+    cont1.appendChild(newDiv)
+    addBtn.id = element.number
+    addBtn.innerHTML = '<span>+<span><span >Add task<span> '
+    addBtn.style.fontSize= '1rem'
+    addBtn.style.cursor = 'pointer'
+    addBtn.classList.add('rounded-circle');
+    newDiv.appendChild(addBtn)
+    cont.appendChild(cont1)
+    });}
   static addProjectName() {
-    const sideNave = document.getElementById('sideNav')
-    sideNave.innerHTML = ''
-    const storedProjects = UI.getProjectName() 
+    const sideNave = document.getElementById('sideNav');
+    sideNave.innerHTML = '';
+    const storedProjects = UI.getProjectName();
     storedProjects.forEach(project => {
-      const nextElement = document.createElement('div')
-      nextElement.innerHTML = project.name + '<i class="fas ml-5 fa-trash-alt" ></i>'
-      nextElement.classList.add('text-white','text-center','mt-4')
-      nextElement.style.cursor ='pointer'
-      nextElement.addEventListener('click',()=>{
-        const sectionTwo = document.getElementById('section-2');
-        const sectionThree = document.getElementById('section-3');
-        const newDiv = document.createElement('h1');
-        newDiv.classList.add('text-center')
-        newDiv.innerHTML = project.name
-        sectionThree.insertBefore(newDiv,sectionTwo)
-
-      })
-      sideNave.appendChild(nextElement)
-      nextElement.children[0].id=project.number
-      nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
+      const nextElement = document.createElement('div');
+      nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
+      nextElement.classList.add('text-white', 'text-center', 'mt-4');
+      nextElement.style.cursor = 'pointer';
+      let visible = false
+      nextElement.addEventListener('click', () => {
+        if (visible===false) {
+          UI.show ()
+        const addBtn = document.getElementById('newDiv')
+        console.log(addBtn.children[0].children[0])
+        addBtn.children[0].children[0].addEventListener('click',()=>{
+          document.getElementById('project-form').classList.add('d-none')
+          const taskform = document.getElementById('task-form')
+        
+          taskform.classList.remove('d-none')
+          taskform.classList.add('d-block')
+          
+        })
+        visible=true
+        }else {const proj= document.querySelector('.proj')
+               proj.remove()
+               visible = false
+        }
+      });
+      sideNave.appendChild(nextElement);
+      nextElement.children[0].id = project.number;
+      nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`);
     });
-
   }
   
 }
