@@ -61,7 +61,7 @@
   color: blue;
   margin-left: 25%;
 }
-#project-form,#task-form {
+#task-form {
   background: gray;
   margin-top: 7%;
   padding: 30px 0 50px 0px;
@@ -70,10 +70,10 @@
   margin-left: auto;
   margin-right: auto;
 }
-#project-form h1,#task-form h1{
+#task-form h1{
   font-size: 1.5rem;
 }
-#project-form  input,#task-form input{
+#task-form input{
   width: 80%;
   /* margin-left: 6%;  */
  align-self: center;
@@ -90,7 +90,7 @@ table {
 }
 
 @media (max-width: 676px){
-  #project-form,#task-form {
+ #task-form {
     margin-left: 48%;
     z-index: 1000;
   }
