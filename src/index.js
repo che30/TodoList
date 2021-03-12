@@ -29,14 +29,12 @@ const dpBtn = document.getElementById('dp-btn');
 let visible = false;
 dpBtn.addEventListener('click', () => {
   const projectForm = document.getElementById('project-form');
+  alert("me")
   if (visible === false) {
-    projectForm.classList.remove('d-none');
-    projectForm.classList.add('d-block');
     visible = true;
   } else {
     visible = false;
-    projectForm.classList.remove('d-block');
-    projectForm.classList.add('d-none');
+
   }
 });
 const welcomBtn = document.getElementById('btnOne');

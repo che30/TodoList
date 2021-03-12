@@ -96,7 +96,6 @@ export default class UI {
         const addBtn = document.getElementById('newDiv')
         console.log(addBtn.children[0].children[0])
         addBtn.children[0].children[0].addEventListener('click',()=>{
-          document.getElementById('project-form').classList.add('d-none')
           const taskform = document.getElementById('task-form')
         
           taskform.classList.remove('d-none')
