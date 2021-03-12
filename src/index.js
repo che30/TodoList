@@ -53,23 +53,23 @@ welcomBtn.addEventListener('click', () => {
     visibleTwo = false;
   }
 });
-const sored = UI.getProjectName()
-sored.forEach(element => {
-  const sectionTwo = document.getElementById('tableone');
-const newDiv = document.createElement('div');
-newDiv.classList.add('text-center','proj');
-newDiv.id ='newDiv'
-newDiv.innerHTML = element.name
+// const sored = UI.getProjectName()
+// sored.forEach(element => {
+//   const sectionTwo = document.getElementById('tableone');
+// const newDiv = document.createElement('div');
+// newDiv.classList.add('text-center','proj');
+// newDiv.id ='newDiv'
+// newDiv.innerHTML = element.name
 
-const addBtn = document.createElement('div');
-sectionTwo.appendChild(newDiv)
-addBtn.id = element.number
-addBtn.innerHTML = '<span>+<span><span >Add task<span> '
-addBtn.style.fontSize= '1rem'
-addBtn.style.cursor = 'pointer'
-addBtn.classList.add('rounded-circle');
-newDiv.appendChild(addBtn)
-});
+// const addBtn = document.createElement('div');
+// sectionTwo.appendChild(newDiv)
+// addBtn.id = element.number
+// addBtn.innerHTML = '<span>+<span><span >Add task<span> '
+// addBtn.style.fontSize= '1rem'
+// addBtn.style.cursor = 'pointer'
+// addBtn.classList.add('rounded-circle');
+// newDiv.appendChild(addBtn)
+// });
 
 // newDiv.innerHTML = project.name ;
 // const addBtn = document.createElement('div');
