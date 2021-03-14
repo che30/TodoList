@@ -15,53 +15,23 @@
     <form id="project-form"  class=" bg-grey">
       <h6 class="text-center">Add a project</h6>
       <div class="form-group">
-        <label for="title" class="ml-5">Title</label>
-        <input type="text" id="title" class="form-control mx-auto">
+        <label for="title" class="">Title</label>
+        <input type="text" id="title" class="form-control ">
       </div>
-      <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto ">
+      <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white  ">
     </form>
-    <div class="sidenav-content">
-     <div class="dropdown">
-      <button  class="dropbtn text-primary "> projects</button>
-      <div class="dropdown-content ">
-        <button id="dp-btn">+</button>
-      </div>
+    <div class="sidenav-content" id="sideNav" >
+  
+      <div  class="projects text-primary text-center"> projects</div>
+  
     </div>
-    <button class="btn-1 " id="btnOne">welcome</button>
-    </div>
-    <div id="sideNav"></div>
+  
   </div>
-    <div id="section-1"></div>
-  <div id="section-3">
-  <div class=" section-2 " id="tableone">
-    <table  class="w-75 " >
-      <tr>
-        <th class="">Title</th>
-        <th>description</th>
-        <th>date</th> 
-      </tr>
-       <tr>
-        <td>Jill</td>
-        <td>Smith</td>
-        <td>50</td> 
-      </tr>
-      <!-- <tr>
-      </tr>  -->
-    </table>
-    <div class="add-task rounded-cicle" id="addTaskBtn">
-      add task  <br>
-      <button class="rounded-circle">+</button>
+    <div id="section-1">
+      
     </div>
-  </div>
+  
 </div>
-  <!-- <form id="project-form" class=" bg-grey">
-    <h1 class="text-center">Add a project</h1>
-    <div class="form-group">
-      <label for="title" class="ml-5">Title</label>
-      <input type="text" id="title" class="form-control mx-auto">
-    </div>
-    <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto mt-5">
-  </form> -->
   <form id="task-form" class=" bg-grey d-none">
     <h1 class="text-center">Add a project</h1>
     <div class="form-group">
@@ -76,6 +46,15 @@
       <label for="date" class="ml-5">Date</label>
       <input type="date" id="date" class="form-control mx-auto">
     </div> 
+     <div class="form-group">
+      <input type="radio" id="high" name="priority" value="high">
+      <label for="high">High</label><br>
+      <input type="radio" id="medium" name="priority" value="medium">
+      <label for="medium">medium</label><br>
+      <input type="radio" id="low" name="priority" value="low">
+      <label for="low">low</label>
+    </div> 
+    </div>
     <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto mt-5">
   </form>
   <script type="text/javascript" src="main.js"></script>

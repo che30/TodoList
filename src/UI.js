@@ -52,47 +52,46 @@ export default class UI {
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify('tasks'));
   }
-  static contain (){
-    const sectionTwo = document.getElementById('tableone');
-    const contaniner = document.createElement('div')
-    contaniner.id= 'contain'
-    sectionTwo.appendChild(contaniner)
-    return sectionTwo
-  }
-  static show (){
-    const sored = UI.getProjectName()
-    const cont = UI.contain()
-    const cont1 = document.getElementById('contain')
-    cont.innerHTML = ''
-     sored.forEach(element => {
-    const newDiv = document.createElement('div');
-    newDiv.classList.add('text-center','proj');
-    newDiv.id ='newDiv'
-    newDiv.innerHTML = element.name
+  // static contain (){
+  //   const sectionTwo = document.getElementById('section-1');
+  //   const contaniner = document.createElement('div')
+  //   contaniner.id= 'contain'
+  //   sectionTwo.appendChild(contaniner)
+  //   return sectionTwo
+  // }
+  // static show (){
+  //   const sored = UI.getProjectName()
+  //   const cont = UI.contain()
+  //   const cont1 = document.getElementById('contain')
+  //   cont.innerHTML = ''
+  //    sored.forEach(element => {
+  //   const newDiv = document.createElement('div');
+  //   newDiv.classList.add('text-center','proj');
+  //   newDiv.id ='newDiv'
+  //   newDiv.innerHTML = element.name
     
-    const addBtn = document.createElement('div');
-    cont1.appendChild(newDiv)
-    addBtn.id = element.number
-    addBtn.innerHTML = '<span>+<span><span >Add task<span> '
-    addBtn.style.fontSize= '1rem'
-    addBtn.style.cursor = 'pointer'
-    addBtn.classList.add('rounded-circle');
-    newDiv.appendChild(addBtn)
-    cont.appendChild(cont1)
-    });}
+  //   const addBtn = document.createElement('div');
+  //   cont1.appendChild(newDiv)
+  //   addBtn.id = element.number
+  //   addBtn.innerHTML = '<span>+<span><span >Add task<span> '
+  //   addBtn.style.fontSize= '1rem'
+  //   addBtn.style.cursor = 'pointer'
+  //   addBtn.classList.add('rounded-circle');
+  //   newDiv.appendChild(addBtn)
+  //   cont.appendChild(cont1)
+  //   });}
   static addProjectName() {
     const sideNave = document.getElementById('sideNav');
-    sideNave.innerHTML = '';
     const storedProjects = UI.getProjectName();
     storedProjects.forEach(project => {
       const nextElement = document.createElement('div');
       nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
       nextElement.classList.add('text-white', 'text-center', 'mt-4');
       nextElement.style.cursor = 'pointer';
+      sideNave.appendChild(nextElement)
       let visible = false
       nextElement.addEventListener('click', () => {
         if (visible===false) {
-          UI.show ()
         const addBtn = document.getElementById('newDiv')
         console.log(addBtn.children[0].children[0])
         addBtn.children[0].children[0].addEventListener('click',()=>{
