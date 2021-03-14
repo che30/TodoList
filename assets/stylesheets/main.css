@@ -20,47 +20,11 @@
   border: none;
   width: 210%;
 }
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
+.projects
+{
+  cursor: pointer;
 }
 
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  top: 15px;
-  right: -100px;
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 10px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 1px 3px 1px 3px;
-  text-decoration: none;
-  display: block;
-  ;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #121312;}
-.btn-1{
-  background-color: #111;
-  color: blue;
-  margin-left: 25%;
-}
 #task-form {
   background: gray;
   margin-top: 7%;
@@ -69,6 +33,9 @@
   width: 39%;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 50px  rgba(0,0,0,0.2);
+  z-index: 100;
+  padding: 10px;
 }
 #task-form h1{
   font-size: 1.5rem;
@@ -88,6 +55,36 @@ table {
   margin-left: 20%;
   margin-top: 15px;
 }
+/* .todo-form .input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+} */
+.radio-group .swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+} 
+
+/* 
+.todo-form .input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+} */
+
+
+.todo.priority-1, .swatch.high-swatch {
+    background: #ff9b73;
+}
+.todo.priority-1, .swatch.medium-swatch {
+  background: #b692fe;
+}
+.todo.priority-1, .swatch.low-swatch {
+  background: #e4ee90;
+}
+
 
 @media (max-width: 676px){
  #task-form {
@@ -100,7 +97,5 @@ table {
   .sidenav {
     width: 30%;
   }
-  .dropbtn{
-    width: 150%;
-  }
+  
 }
