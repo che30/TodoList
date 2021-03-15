@@ -1,21 +1,11 @@
-import Project from './Project'
-class Task {
-  constructor(title, description, date,priority,number) {
-    this.title = title;
-    this.description = description;
-    this.description = date;
-    this.priority = priority
-    this.number = number
+class Project {
+  constructor(name, number) {
+    this.name = name;
+    this.number = number;
+    this.tasks = []
   }
 }
 class UI {
-  static showAlert(message, className) {
-    const div = document.createElement('div');
-    div.className = `alert alert-${className} text-center`;
-    div.appendChild(document.createTextNode(message));
-    const container = document.querySelector('#section-1');
-    container.appendChild(div);
-  }
   static getProjectName() {
     let projects;
     if (localStorage.getItem('projects') === null) {
@@ -25,6 +15,24 @@ class UI {
     }
 
     return projects;
+  }
+  static getSelected() {
+    let selectedId;
+    if (localStorage.getItem('selectedId') === null) {
+      selectedId = [];
+    } else {
+      selectedId = JSON.parse(localStorage.getItem('selectedId'));
+    }
+    return selectedId;
+  }
+  static storeSelected(element) {
+    
+    let selectedId = UI.getSelected();
+    while( selectedId.length > 0) {
+       selectedId.pop();
+  }
+    selectedId.push(element)
+    localStorage.setItem('selectedId', JSON.stringify(selectedId));
   }
   static storeProjectName(project) {
     const projects = UI.getProjectName();
@@ -42,101 +50,72 @@ class UI {
 
     return currentNumber;
   }
-  static getTask() {
-    let tasks;
-    if (localStorage.getItem('tasks') === null) {
-      tasks = [];
-    } else {
-      projects = JSON.parse(localStorage.getItem('tasks'));
-    }
-
-    return tasks;
+  static showAlert(message, className) {
+    const div = document.createElement('div');
+    div.className = `alert alert-${className} text-center`;
+    div.appendChild(document.createTextNode(message));
+    const container = document.querySelector('#section-1');
+    container.appendChild(div);
   }
-
-  static storeTask(task) {
-    const tasks = UI.getTask();
-    tasks.push(task);
-    localStorage.setItem('tasks', JSON.stringify('tasks'));
-  }
-  static addProjectName() {
-    document.getElementById('section-1').innerHTML =''
-   
+  // static contain (){
+  //   const sectionTwo = document.getElementById('tableone');
+  //   const contaniner = document.createElement('div')
+  //   contaniner.id= 'contain'
+  //   sectionTwo.appendChild(contaniner)
+  //   return sectionTwo
+  // }
+  
+static addProjectName() {
     const storedProjects = UI.getProjectName();
+    const mainContain= document.getElementById('sideNavList')
+    // mainContain.innerHTML = ''
+    
     storedProjects.forEach(project => {
       
-      const nextElement = document.createElement('div');
+      const nextElement = document.createElement('li');
       nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
-      nextElement.classList.add('text-white', 'text-center', 'mt-4','shared');
+      nextElement.classList.add('text-white', 'text-center', 'mt-4','list-unstyled');
       nextElement.id =  project.number
       nextElement.style.cursor = 'pointer';
-      container.appendChild(nextElement)
-      let visible = false
-      const containerTwo = document.getElementById('section-1')
-     
-     nextElement.addEventListener('click', () => {
-       const newEl = document.createElement('div')
-       const btn =document.createElement('div')
-       btn.style.cursor = "pointer"
-       btn.innerHTML = '+'
-
-       newEl.innerHTML = project.name
-     
-        if (visible===false && newEl) {
-         containerTwo.appendChild(newEl)
-         newEl.style.marginLeft = "20%"
-
-         visible =true
-
-        }else {
-         containerTwo.children[0].remove()
-         visible = false;
-
-        }
-        newEl.appendChild(btn)
-        newEl.addEventListener('click',()=>{
-          const taskform = document.getElementById('task-form')
-        
-          taskform.classList.remove('d-none')
-          taskform.classList.add('d-block')
-        })
-   })
-    nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
+      mainContain.appendChild(nextElement)
+      mainContain.addEventListener('click', e => {
+      if (e.target.tagName.toLowerCase()==='li'){
+        UI.storeSelected(e.target.id)
+        const selectedel = UI.getSelected()
+        if (selectedel[0]===e.target.id){
+          console.log("sucees")
+      }
+      }})
+      nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
     })
-}}
+}
+}
 window.removeProject = (projectNumber) => {
   const projects = UI.getProjectName();
   projects.forEach((project, index) => {
     if (project.number === projectNumber) {
-      
       projects.splice(index, 1);
     }
   });
-
-  document.getElementById(projectNumber).remove();
+  document.getElementById(projectNumber).parentNode.remove();
   localStorage.setItem('projects', JSON.stringify(projects));
   UI.addProjectName();
   UI.showAlert('Project Removed', 'success');
   setTimeout(() => {
-    // window.location.reload();
+    window.location.reload();
   }, 3000);
 };
-const sideNave = document.getElementById('section-1');
-    const container = document.createElement('div')
-    sideNav.appendChild(container)
-    const deefault =document.createElement('div')
+const sideNave = document.getElementById('sideNavList');
+    const deefault =document.createElement('li')
     deefault.innerHTML = 'default'
-    deefault.classList.add('text-white','text-center')
-    container.appendChild(deefault)
-    sideNav.appendChild(container)
-
-
-document.querySelector('#project-form').addEventListener('submit', (e) => {
+    deefault.classList.add('text-white','text-center','list-unstyled')
+    sideNave.appendChild(deefault)
+    
+document.getElementById('project-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
 
   const title = document.querySelector('#title').value;
-  // const description = document.querySelector('#description').value;
-  // const date = document.querySelector('#date').value
   if (title === '') {
     UI.showAlert('Please fill in all fields', 'danger');
     setTimeout(() => {
@@ -144,44 +123,36 @@ document.querySelector('#project-form').addEventListener('submit', (e) => {
     }, 3000);
   } else {
     const project = new Project(title, UI.countProject());
-   
-     UI.storeProjectName(project);
-     UI.addProjectName();
+    UI.storeProjectName(project);
+    UI.addProjectName();
     UI.showAlert('project added successfuly', 'success');
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
     }, 3000);
   }
 });
-document.querySelector('#task-form').addEventListener('submit', (e) => {
+document.getElementById('task-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
 
-  const title = document.querySelector('#title').value;
+  const title = document.querySelector('#titletwo').value;
   const description = document.querySelector('#description').value;
    const date = document.querySelector('#date').value
-  //  const priority = document.getElementById('todo-priority-high')||
-  //  document.getElementById('todo-priority-low')||document.getElementById('todo-priority-medium')
-   const priority = document.getElementsByName('priority')
-   let chech
-   function checker(){
-   
-   }
+  const priority = document.querySelector('input[name="priority"]:checked').value
+
   
+  if (title === ''||description===''||date ==''|| priority==undefined) {
   
-  // if(priority[0].checked===false && priority[1].checked ===false && priority[2].checked==false){
-  if (title === ''||description===''||date =='' ) {
-  
-   if(chech.checked===false){
     UI.showAlert('Please fill in all fields', 'danger');
     setTimeout(() => {
       window.location.reload();
     }, 3000);
-  }} else {
+  } else {
+    // console.log(Task.countTask())
    
-    const task = new Task(title, description, date,chech,countProject() );
+    const task = new Task(title, description, date, Task.countTask(),priority);
    
-     UI.storeTask(task);
+     Task.storeTask(task);
     //  UI.addProjectName();
     UI.showAlert('Task added successfuly', 'success');
     setTimeout(() => {
@@ -189,5 +160,5 @@ document.querySelector('#task-form').addEventListener('submit', (e) => {
     }, 3000);
   }
 });
- document.addEventListener('DOMContentLoaded', UI.addProjectName());
-//  localStorage.clear()
+document.addEventListener('DOMContentLoaded', UI.addProjectName());
+ localStorage.clear()
