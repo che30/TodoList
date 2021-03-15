@@ -13,30 +13,31 @@
 <body>
   <div class="sidenav" >
     <form id="project-form"  class=" bg-grey">
-      <h6 class="text-center">Add a project</h6>
       <div class="form-group">
-        <label for="title" class="">Title</label>
         <input type="text" id="title" class="form-control ">
       </div>
-      <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white  ">
+      <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto ">
     </form>
-    <div class="sidenav-content" id="sideNav" >
+    <div class="sidenav-content"  >
   
-      <div  class="projects text-primary text-center"> projects</div>
-  
+      <div  class="dropbtn text-primary " id="project-header"> projects</div>
+      <div id="sideNavList">
+        <ul class="" id="sideNavListchild">
+
+        </ul>
+      </div>
+
     </div>
   
   </div>
-    <div id="section-1">
+  <div id="section-1">
       
-    </div>
-  
-</div>
+  </div>
   <form id="task-form" class=" bg-grey d-none">
-    <h1 class="text-center">Add a project</h1>
+    <h1 class="text-center">Add a task</h1>
     <div class="form-group">
-      <label for="title" class="ml-5">Title</label>
-      <input type="text" id="title" class="form-control mx-auto">
+      <label for="titletwo" class="ml-5">Title</label>
+      <input type="text" id="titletwo" class="form-control mx-auto">
     </div>
    <div class="form-group">
       <label for="description" class="ml-5">description</label>
@@ -48,13 +49,12 @@
     </div> 
      <div class="form-group">
       <input type="radio" id="high" name="priority" value="high">
-      <label for="high">High</label><br>
+      <label for="high"><div class="bg-danger w-50"> </div>  High</label><br>
       <input type="radio" id="medium" name="priority" value="medium">
       <label for="medium">medium</label><br>
       <input type="radio" id="low" name="priority" value="low">
       <label for="low">low</label>
     </div> 
-    </div>
     <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto mt-5">
   </form>
   <script type="text/javascript" src="main.js"></script>
