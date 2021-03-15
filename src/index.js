@@ -57,6 +57,33 @@ class UI {
     const container = document.querySelector('#section-1');
     container.appendChild(div);
   }
+  static renderSelected(element){
+    const storedProjects = UI.getProjectName();
+    const mainContain= document.getElementById('sideNavListchild')
+   
+    mainContain.innerHTML = ''
+    renderDefault()
+    storedProjects.forEach(project => {
+      
+      const nextElement = document.createElement('li');
+      nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
+      nextElement.classList.add('text-white', 'text-center', 'mt-4','list-unstyled');
+     
+      nextElement.id =  project.number
+      // if(parseInt(element[0]===nextElement.id)
+     if(parseInt(element[0])=== parseInt(nextElement.id)){
+      nextElement.classList.add('text-danger')
+     }
+      nextElement.style.cursor = 'pointer';
+      mainContain.appendChild(nextElement)
+      nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
+    })
+}
+static renderRefresh(){
+  const currentItemId = UI.getSelected()
+  UI.renderSelected(currentItemId)
+  
+}
   // static contain (){
   //   const sectionTwo = document.getElementById('tableone');
   //   const contaniner = document.createElement('div')
@@ -67,9 +94,10 @@ class UI {
   
 static addProjectName() {
     const storedProjects = UI.getProjectName();
-    const mainContain= document.getElementById('sideNavList')
-    // mainContain.innerHTML = ''
-    
+    const mainContain= document.getElementById('sideNavListchild')
+   
+    mainContain.innerHTML = ''
+    renderDefault()
     storedProjects.forEach(project => {
       
       const nextElement = document.createElement('li');
@@ -78,17 +106,17 @@ static addProjectName() {
       nextElement.id =  project.number
       nextElement.style.cursor = 'pointer';
       mainContain.appendChild(nextElement)
-      mainContain.addEventListener('click', e => {
-      if (e.target.tagName.toLowerCase()==='li'){
-        UI.storeSelected(e.target.id)
-        const selectedel = UI.getSelected()
-        if (selectedel[0]===e.target.id){
-          console.log("sucees")
-      }
-      }})
+      mainContain.addEventListener('click',e =>{
+        if(e.target.tagName.toLowerCase()==='li'){
+          UI.storeSelected(e.target.id)
+          const selectedId = UI.getSelected()
+          UI.renderSelected(selectedId)
+        }
+      })
       nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
     })
 }
+
 }
 window.removeProject = (projectNumber) => {
   const projects = UI.getProjectName();
@@ -97,7 +125,7 @@ window.removeProject = (projectNumber) => {
       projects.splice(index, 1);
     }
   });
-  document.getElementById(projectNumber).parentNode.remove();
+  document.getElementById(projectNumber).remove();
   localStorage.setItem('projects', JSON.stringify(projects));
   UI.addProjectName();
   UI.showAlert('Project Removed', 'success');
@@ -105,11 +133,13 @@ window.removeProject = (projectNumber) => {
     window.location.reload();
   }, 3000);
 };
-const sideNave = document.getElementById('sideNavList');
+function renderDefault(){
+const sideNave = document.getElementById('sideNavListchild');
     const deefault =document.createElement('li')
     deefault.innerHTML = 'default'
     deefault.classList.add('text-white','text-center','list-unstyled')
     sideNave.appendChild(deefault)
+}
     
 document.getElementById('project-form').addEventListener('submit', (e) => {
   // Prevent actual submit
@@ -160,5 +190,7 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     }, 3000);
   }
 });
-document.addEventListener('DOMContentLoaded', UI.addProjectName());
- localStorage.clear()
+renderDefault()
+document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh());
+
+//  localStorage.clear()
