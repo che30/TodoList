@@ -74,7 +74,13 @@ table {
   margin-bottom: 18px;
 } */
 
-
+#section-1{
+ 
+  margin-left: 20%;
+}
+.btn-task {
+  cursor: pointer;
+}
 .todo.priority-1, .swatch.high-swatch {
     background: #ff9b73;
 }
