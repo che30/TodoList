@@ -42,7 +42,7 @@ class UI {
   static countProject() {
     let currentNumber = Number(localStorage.getItem('lastProjectId'));
     if (currentNumber === null) {
-      currentNumber = 0;
+      currentNumber = 1;
     } else {
       currentNumber += 1;
       localStorage.setItem('lastProjectId', currentNumber);
@@ -57,6 +57,33 @@ class UI {
     const container = document.querySelector('#section-1');
     container.appendChild(div);
   }
+  static synchro(argument){
+    const sectionOne = document.getElementById('section-1')
+    // sectionOne.innerHTML  = ''
+    const adBtn = document.getElementById('add-class-header')
+    adBtn.innerHTML  = ''
+    const addTaskHeader = document.getElementById('add-class-header')
+    addTaskHeader.innerHTML = 'add Task'
+    const title = document.createElement('h4')
+    const adtask = document.createElement('div')
+    adtask.innerHTML =  '+'
+    adtask.style.cursor= 'pointer'
+    title.innerHTML = argument.textContent;
+    sectionOne.appendChild(adtask)
+    sectionOne.insertBefore(title,adBtn)
+  }
+  static displayAddTask(argument){
+    const sectionOne = document.getElementById('section-1')
+    sectionOne.classList.remove('d-none')
+    sectionOne.classList.add('d-block')
+    // console.log(typeof argument.textContent)
+    // title.innerHTML =argument.value
+    const taskForm = document.getElementById('task-form')
+    argument.addEventListener('click',()=> {
+      taskForm.classList.remove('d-none')
+      taskForm.classList.add('d-block')
+    })
+  }
   static renderSelected(element){
     const storedProjects = UI.getProjectName();
     const mainContain= document.getElementById('sideNavListchild')
@@ -64,11 +91,10 @@ class UI {
     mainContain.innerHTML = ''
     renderDefault()
     storedProjects.forEach(project => {
-      
+      if(project.number!=0){
       const nextElement = document.createElement('li');
       nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
       nextElement.classList.add('text-white', 'text-center', 'mt-4','list-unstyled');
-     
       nextElement.id =  project.number
       // if(parseInt(element[0]===nextElement.id)
      if(parseInt(element[0])=== parseInt(nextElement.id)){
@@ -77,7 +103,7 @@ class UI {
       nextElement.style.cursor = 'pointer';
       mainContain.appendChild(nextElement)
       nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
-    })
+    }})
 }
 static renderRefresh(){
   const currentItemId = UI.getSelected()
@@ -99,7 +125,7 @@ static addProjectName() {
     mainContain.innerHTML = ''
     renderDefault()
     storedProjects.forEach(project => {
-      
+      if(project.number!=0){
       const nextElement = document.createElement('li');
       nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
       nextElement.classList.add('text-white', 'text-center', 'mt-4','list-unstyled');
@@ -108,13 +134,16 @@ static addProjectName() {
       mainContain.appendChild(nextElement)
       mainContain.addEventListener('click',e =>{
         if(e.target.tagName.toLowerCase()==='li'){
+          // document.getElementById('section-1').classList.add('d-block')
+          UI.displayAddTask(e.target)
           UI.storeSelected(e.target.id)
           const selectedId = UI.getSelected()
           UI.renderSelected(selectedId)
+          UI.synchro(e.target)
         }
       })
       nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
-    })
+    }})
 }
 
 }
@@ -134,13 +163,15 @@ window.removeProject = (projectNumber) => {
   }, 3000);
 };
 function renderDefault(){
+  const deefaultElement = UI.getProjectName()
 const sideNave = document.getElementById('sideNavListchild');
     const deefault =document.createElement('li')
-    deefault.innerHTML = 'default'
+    deefault.innerHTML = `${deefaultElement[0].name}`
     deefault.classList.add('text-white','text-center','list-unstyled')
     sideNave.appendChild(deefault)
 }
-    
+const defaault =new Project('default',0)
+UI.storeProjectName(defaault)
 document.getElementById('project-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
@@ -161,6 +192,7 @@ document.getElementById('project-form').addEventListener('submit', (e) => {
     }, 3000);
   }
 });
+
 document.getElementById('task-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
@@ -190,7 +222,8 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     }, 3000);
   }
 });
-renderDefault()
+
+// renderDefault()
 document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh());
 
-//  localStorage.clear()
+  //  localStorage.clear()
