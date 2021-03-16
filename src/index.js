@@ -1,3 +1,5 @@
+import { el } from "date-fns/locale";
+
 class Project {
   constructor(name, number) {
     this.name = name;
@@ -141,6 +143,7 @@ static addProjectName() {
           const selectedId = UI.getSelected()
           UI.renderSelected(selectedId)
           e.target.setAttribute('onclick',UI.synchro(e.target))
+          // renderAddTaskScreen(parseInt(e.target.id))
         }
       })
       nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
@@ -148,6 +151,34 @@ static addProjectName() {
 }
 
 }
+function renderAddTaskScreen(id){
+  const stored = UI.getProjectName()
+  stored.forEach((el,index)=>{
+   if(index===id){
+       
+   const sectionOne = document.getElementById('section-1')
+   sectionOne.classList.remove('d-none')
+   sectionOne.classList.add('d-block')
+     sectionOne.innerHTML =''
+     const addHeader = document.getElementById('add-class-header')
+     const title = document.createElement('h4')
+     const adtask = document.createElement('div')
+     const plusBtn = document.createElement('div')
+     plusBtn.innerHTML = '+'
+     plusBtn.style.cursor ='pointer'
+     adtask.innerHTML = 'Add task'
+     adtask.appendChild(plusBtn)
+     title.innerHTML = el.name;
+     adtask.appendChild(plusBtn)
+     sectionOne.appendChild(adtask)
+     sectionOne.insertBefore(title,adtask)
+    
+   }
+  })
+  
+  
+}
+ document.getElementById('section-1').classList.add('d-none')
 window.removeProject = (projectNumber) => {
   const projects = UI.getProjectName();
   projects.forEach((project, index) => {
@@ -169,6 +200,7 @@ const sideNave = document.getElementById('sideNavListchild');
     const deefault =document.createElement('li')
     deefault.innerHTML = `${deefaultElement[0].name}`
     deefault.classList.add('text-white','text-center','list-unstyled')
+    deefault.style.cursor ='pointer'
     sideNave.appendChild(deefault)
 }
 const defaault =new Project('default',0)
@@ -225,6 +257,9 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
 });
 
 // renderDefault()
+const giveMeActiveProject = parseInt(UI.getSelected()[0])
+renderAddTaskScreen(giveMeActiveProject)
+
 document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh());
 
-  //  localStorage.clear()
+    // localStorage.clear()
