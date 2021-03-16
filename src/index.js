@@ -1,4 +1,4 @@
-import { el } from "date-fns/locale";
+import { compareAsc, format } from 'date-fns'
  import UI from './UI'
  import Project from './Project'
  import Task from './Task'
@@ -164,8 +164,7 @@ import { el } from "date-fns/locale";
 function renderAddTaskScreen(id){
   const stored = UI.getProjectName()
   stored.forEach((el,index)=>{
-   if(index===(id-1)){
-       
+   if(index===id){
    const sectionOne = document.getElementById('section-1')
    sectionOne.classList.remove('d-none')
    sectionOne.classList.add('d-block')
@@ -233,11 +232,9 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
   e.preventDefault();
 
   const title = document.querySelector('#titletwo').value;
-  const description = document.querySelector('#description').value;
+  const description = document.getElementById('description').value;
    const date = document.querySelector('#date').value
   const priority = document.querySelector('input[name="priority"]:checked').value
-
-  
   if (title === ''||description===''||date ==''|| priority==undefined) {
   
     UI.showAlert('Please fill in all fields', 'danger');
@@ -248,20 +245,14 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     // console.log(Task.countTask())
     const giveMeActiveProject = UI.getSelected()
     const giveStoredProjects = UI.getProjectName()
-    const task = new Task(title, description, date,priority,Date.now().toString());
-   
-     Task.storeTask(task);
-     const giveMeStoredTasks = Task.getTask()
-     if(giveMeActiveProject.length===0){
-       console.log('yest it is')
-     
-      // console.log(giveMeStoredTasks[giveMeStoredTasks.length-1] )
-      giveStoredProjects[0].tasks.push(Task.getTask()[Task.getTask().length-1])
-      UI.storeProjectName(giveStoredProjects)
-     }else{
-      
-     }
-    //  UI.addProjectName();
+    if((giveMeActiveProject.length===0)||(giveMeActiveProject[0].length===0)){
+      console.log("test succeed")
+    const task = new Task(title, description , date,priority,Date.now().toString(), giveStoredProjects[0].name);
+    Task.storeTask(task);
+  }else{ 
+    const task = new Task(title, description , date,priority,Date.now().toString(), giveStoredProjects[parseInt(giveMeActiveProject[0])].name);
+    Task.storeTask(task);
+  }
     UI.showAlert('Task added successfuly', 'success');
     setTimeout(() => {
       window.location.reload();
@@ -273,8 +264,6 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
 const giveMeActiveProject = parseInt(UI.getSelected()[0])
 renderAddTaskScreen(giveMeActiveProject)
 // const giveStoredProjects = UI.getProjectName()
-
-// console.log(UI.getSelected().length)
 // console.log(UI.getProjectName()[0].tasks)
 //  console.log( Task.getTask()[Task.getTask().length-1] )
 document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh());

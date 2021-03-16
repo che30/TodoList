@@ -1,4 +1,5 @@
 import Project from './Project'
+import Task from './Task'
 export default class UI {
   static getProjectName() {
     let projects;
@@ -44,6 +45,60 @@ export default class UI {
 
     return currentNumber;
   }
+  static addActiveProjectTask(){
+    const allTask = Task.getTask()
+   const allProjects = UI.getProjectName()
+    const giveMeActiveProject = parseInt(UI.getSelected()[0])||0
+    console.log('yes')
+    
+    allTask.forEach(task =>{
+      console.log(task.createBy,allProjects[giveMeActiveProject].name)
+      if(task.createBy===allProjects[giveMeActiveProject].name){
+        
+        const sectionOne = document.getElementById('section-1')
+    sectionOne.classList.remove('d-none')
+    sectionOne.classList.add('d-block','mt-3')
+    const taskTitle=document.createElement('h5')
+        taskTitle.innerHTML = task.title
+        const mainTaskContain = document.createElement('div')
+        mainTaskContain.classList.add('d-flex','flex-wrap')
+        taskTitle.classList.add('text-success','bg-grey','card-title')
+        const cardContain = document.createElement('div')
+        cardContain.classList.add('card')
+        const cardBody = document.createElement('div')
+        cardBody.classList.add('card-body')
+        const taskDate = document.createElement('p')
+        taskDate.innerHTML = task.date
+        taskDate.classList.add('card-text')
+        const taskDescription = document.createElement('p')
+        taskDescription.innerHTML = task.description
+   const addHeader = document.getElementById('add-class-header')
+   const title = document.createElement('h4')
+   const adtask = document.createElement('div')
+   const plusBtn = document.createElement('div')
+   plusBtn.innerHTML = '+'
+   plusBtn.style.cursor ='pointer'
+   adtask.innerHTML = 'Add task'
+   adtask.appendChild(plusBtn)
+   title.innerHTML = task.createBy;
+   plusBtn.addEventListener('click',()=>{
+     const taskForm = document.getElementById('task-form')
+     taskForm.classList.remove('d-none')
+     taskForm.classList.add('d-block')
+   })
+   cardBody.appendChild(taskTitle)
+   cardBody.appendChild(taskDescription)
+   cardBody.appendChild(taskDate)
+   cardContain.appendChild(cardBody)
+   mainTaskContain.appendChild(cardContain)
+   adtask.appendChild(plusBtn)
+   sectionOne.appendChild(adtask)
+   sectionOne.insertBefore(title,adtask)
+   sectionOne.insertBefore(mainTaskContain,title)
+        
+      }
+    })
+  }
   static renderDefault(){
     const deefaultElement = UI.getProjectName()
     if (deefaultElement.length===0){
@@ -58,13 +113,12 @@ export default class UI {
       deefault.style.cursor ='pointer'
       deefault.addEventListener('click',()=>{
         UI.synchro(deefault)
-        const giveMeActiveProject = parseInt(UI.getSelected()[0])
-        console.log(giveMeActiveProject )
-        const taskForm = document.getElementById('task-form')
-      taskForm.classList.remove('d-none')
-      taskForm.classList.add('d-block')
+        const giveMeActiveProject = parseInt(UI.getSelected()[0])||0
+        console.log(deefaultElementOne[giveMeActiveProject].name)
+        UI.addActiveProjectTask()
       })
       sideNave.appendChild(deefault)
+      UI.addActiveProjectTask()
   }
   static showAlert(message, className) {
     const div = document.createElement('div');
