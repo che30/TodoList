@@ -1,21 +1,10 @@
 export default class Task {
-  constructor(title, description, date,number,priority) {
+  constructor(title, description, date,priority,now) {
     this.title = title;
     this.description = description;
     this.description = date;
-    this.number = number
     this.priority = priority
-  }
-  static countTask() {
-    let currentNumber = Number(localStorage.getItem('lastTakId'));
-    if (currentNumber === null) {
-      currentNumber = 0;
-    } else {
-      currentNumber += 1;
-      localStorage.setItem('lastTakId', currentNumber);
-    }
-
-    return currentNumber;
+    this.now = now
   }
 
   static getTask() {

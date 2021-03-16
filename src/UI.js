@@ -1,3 +1,4 @@
+import Project from './Project'
 export default class UI {
   static getProjectName() {
     let projects;
@@ -55,6 +56,14 @@ export default class UI {
       deefault.innerHTML = `${deefaultElementOne[0].name}`
       deefault.classList.add('text-white','text-center','list-unstyled')
       deefault.style.cursor ='pointer'
+      deefault.addEventListener('click',()=>{
+        UI.synchro(deefault)
+        const giveMeActiveProject = parseInt(UI.getSelected()[0])
+        console.log(giveMeActiveProject )
+        const taskForm = document.getElementById('task-form')
+      taskForm.classList.remove('d-none')
+      taskForm.classList.add('d-block')
+      })
       sideNave.appendChild(deefault)
   }
   static showAlert(message, className) {

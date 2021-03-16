@@ -1,6 +1,7 @@
 import { el } from "date-fns/locale";
  import UI from './UI'
  import Project from './Project'
+ import Task from './Task'
 
 // class UI {
 //   static getProjectName() {
@@ -163,7 +164,6 @@ import { el } from "date-fns/locale";
 function renderAddTaskScreen(id){
   const stored = UI.getProjectName()
   stored.forEach((el,index)=>{
-    console.log(el.name,index)
    if(index===(id-1)){
        
    const sectionOne = document.getElementById('section-1')
@@ -246,10 +246,21 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     }, 3000);
   } else {
     // console.log(Task.countTask())
-   
-    const task = new Task(title, description, date, Task.countTask(),priority);
+    const giveMeActiveProject = UI.getSelected()
+    const giveStoredProjects = UI.getProjectName()
+    const task = new Task(title, description, date,priority,Date.now().toString());
    
      Task.storeTask(task);
+     const giveMeStoredTasks = Task.getTask()
+     if(giveMeActiveProject.length===0){
+       console.log('yest it is')
+     
+      // console.log(giveMeStoredTasks[giveMeStoredTasks.length-1] )
+      giveStoredProjects[0].tasks.push(Task.getTask()[Task.getTask().length-1])
+      UI.storeProjectName(giveStoredProjects)
+     }else{
+      
+     }
     //  UI.addProjectName();
     UI.showAlert('Task added successfuly', 'success');
     setTimeout(() => {
@@ -261,7 +272,11 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
 // renderDefault()
 const giveMeActiveProject = parseInt(UI.getSelected()[0])
 renderAddTaskScreen(giveMeActiveProject)
+// const giveStoredProjects = UI.getProjectName()
 
+// console.log(UI.getSelected().length)
+// console.log(UI.getProjectName()[0].tasks)
+//  console.log( Task.getTask()[Task.getTask().length-1] )
 document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh());
 
     //  localStorage.clear()
