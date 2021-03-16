@@ -62,6 +62,8 @@ class UI {
   static synchro(argument){
     const sectionOne = document.getElementById('section-1')
     sectionOne.innerHTML =''
+    sectionOne.classList.remove('d-none')
+    sectionOne.classList.add('d-block')
     const addHeader = document.getElementById('add-class-header')
     const title = document.createElement('h4')
     const adtask = document.createElement('div')
@@ -71,21 +73,22 @@ class UI {
     adtask.innerHTML = 'Add task'
     adtask.appendChild(plusBtn)
     title.innerHTML = argument.textContent;
+    plusBtn.addEventListener('click',()=>{
+      const taskForm = document.getElementById('task-form')
+      taskForm.classList.remove('d-none')
+      taskForm.classList.add('d-block')
+    })
     adtask.appendChild(plusBtn)
     sectionOne.appendChild(adtask)
     sectionOne.insertBefore(title,adtask)
+   
   }
-  static displayAddTask(argument){
+  static displayAddTask(){
     const sectionOne = document.getElementById('section-1')
     sectionOne.classList.remove('d-none')
     sectionOne.classList.add('d-block')
     // console.log(typeof argument.textContent)
     // title.innerHTML =argument.value
-    const taskForm = document.getElementById('task-form')
-    argument.addEventListener('click',()=> {
-      taskForm.classList.remove('d-none')
-      taskForm.classList.add('d-block')
-    })
   }
   static renderSelected(element){
     const storedProjects = UI.getProjectName();
@@ -138,10 +141,13 @@ static addProjectName() {
       mainContain.addEventListener('click',e =>{
         if(e.target.tagName.toLowerCase()==='li'){
           // document.getElementById('section-1').classList.add('d-block')
-          UI.displayAddTask(e.target)
+          UI.displayAddTask()
           UI.storeSelected(e.target.id)
           const selectedId = UI.getSelected()
           UI.renderSelected(selectedId)
+          const taskForm = document.getElementById('task-form')
+          taskForm.classList.remove('d-block')
+          taskForm.classList.add('d-none')
           e.target.setAttribute('onclick',UI.synchro(e.target))
           // renderAddTaskScreen(parseInt(e.target.id))
         }
@@ -154,7 +160,8 @@ static addProjectName() {
 function renderAddTaskScreen(id){
   const stored = UI.getProjectName()
   stored.forEach((el,index)=>{
-   if(index===id){
+    console.log(el.name,index)
+   if(index===(id-1)){
        
    const sectionOne = document.getElementById('section-1')
    sectionOne.classList.remove('d-none')
@@ -172,6 +179,7 @@ function renderAddTaskScreen(id){
      adtask.appendChild(plusBtn)
      sectionOne.appendChild(adtask)
      sectionOne.insertBefore(title,adtask)
+     return
     
    }
   })
@@ -196,15 +204,19 @@ window.removeProject = (projectNumber) => {
 };
 function renderDefault(){
   const deefaultElement = UI.getProjectName()
+  if (deefaultElement.length===0){
+    const defaault =new Project('default',0)
+    UI.storeProjectName(defaault)
+  }
+  const deefaultElementOne = UI.getProjectName()
 const sideNave = document.getElementById('sideNavListchild');
     const deefault =document.createElement('li')
-    deefault.innerHTML = `${deefaultElement[0].name}`
+    deefault.innerHTML = `${deefaultElementOne[0].name}`
     deefault.classList.add('text-white','text-center','list-unstyled')
     deefault.style.cursor ='pointer'
     sideNave.appendChild(deefault)
 }
-const defaault =new Project('default',0)
-UI.storeProjectName(defaault)
+
 document.getElementById('project-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
@@ -262,4 +274,4 @@ renderAddTaskScreen(giveMeActiveProject)
 
 document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh());
 
-    // localStorage.clear()
+    //  localStorage.clear()
