@@ -59,18 +59,19 @@ class UI {
   }
   static synchro(argument){
     const sectionOne = document.getElementById('section-1')
-    // sectionOne.innerHTML  = ''
-    const adBtn = document.getElementById('add-class-header')
-    adBtn.innerHTML  = ''
-    const addTaskHeader = document.getElementById('add-class-header')
-    addTaskHeader.innerHTML = 'add Task'
+    sectionOne.innerHTML =''
+    const addHeader = document.getElementById('add-class-header')
     const title = document.createElement('h4')
     const adtask = document.createElement('div')
-    adtask.innerHTML =  '+'
-    adtask.style.cursor= 'pointer'
+    const plusBtn = document.createElement('div')
+    plusBtn.innerHTML = '+'
+    plusBtn.style.cursor ='pointer'
+    adtask.innerHTML = 'Add task'
+    adtask.appendChild(plusBtn)
     title.innerHTML = argument.textContent;
+    adtask.appendChild(plusBtn)
     sectionOne.appendChild(adtask)
-    sectionOne.insertBefore(title,adBtn)
+    sectionOne.insertBefore(title,adtask)
   }
   static displayAddTask(argument){
     const sectionOne = document.getElementById('section-1')
@@ -139,7 +140,7 @@ static addProjectName() {
           UI.storeSelected(e.target.id)
           const selectedId = UI.getSelected()
           UI.renderSelected(selectedId)
-          UI.synchro(e.target)
+          e.target.setAttribute('onclick',UI.synchro(e.target))
         }
       })
       nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
