@@ -24,7 +24,9 @@
 {
   cursor: pointer;
 }
-
+#description{
+  width: 79%;
+}
 #task-form {
   background: gray;
   margin-top: 7%;
