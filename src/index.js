@@ -1,5 +1,5 @@
 import { compareAsc, format } from 'date-fns'
- import UI from './UI'
+ import UI from './UI.js'
  import Project from './Project'
  import Task from './Task'
 
@@ -165,6 +165,7 @@ function renderAddTaskScreen(id){
   const stored = UI.getProjectName()
   stored.forEach((el,index)=>{
    if(index===id){
+     console.log(index)
    const sectionOne = document.getElementById('section-1')
    sectionOne.classList.remove('d-none')
    sectionOne.classList.add('d-block')
@@ -213,9 +214,7 @@ document.getElementById('project-form').addEventListener('submit', (e) => {
   const title = document.querySelector('#title').value;
   if (title === '') {
     UI.showAlert('Please fill in all fields', 'danger');
-    setTimeout(() => {
-      // window.location.reload();
-    }, 3000);
+   UI.delay()
   } else {
     const project = new Project(title, UI.countProject());
     UI.storeProjectName(project);
@@ -246,7 +245,6 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     const giveMeActiveProject = UI.getSelected()
     const giveStoredProjects = UI.getProjectName()
     if((giveMeActiveProject.length===0)||(giveMeActiveProject[0].length===0)){
-      console.log("test succeed")
     const task = new Task(title, description , date,priority,Date.now().toString(), giveStoredProjects[0].name);
     Task.storeTask(task);
   }else{ 
@@ -254,18 +252,19 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     Task.storeTask(task);
   }
     UI.showAlert('Task added successfuly', 'success');
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
+    UI.delay()
   }
 });
 
-// renderDefault()
+ UI.renderDefault()
+ UI.addActiveProjectTask()
 const giveMeActiveProject = parseInt(UI.getSelected()[0])
 renderAddTaskScreen(giveMeActiveProject)
+console.log(giveMeActiveProject)
 // const giveStoredProjects = UI.getProjectName()
 // console.log(UI.getProjectName()[0].tasks)
 //  console.log( Task.getTask()[Task.getTask().length-1] )
-document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh());
+window.addEventListener('load',UI.addActiveProjectTask())
+document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh(),renderAddTaskScreen(giveMeActiveProject),UI.addActiveProjectTask());,renderAddTaskScreen(giveMeActiveProject));
 
     //  localStorage.clear()

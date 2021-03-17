@@ -1,6 +1,11 @@
 import Project from './Project'
 import Task from './Task'
 export default class UI {
+  static delay(){
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
+  }
   static getProjectName() {
     let projects;
     if (localStorage.getItem('projects') === null) {
@@ -48,56 +53,84 @@ export default class UI {
   static addActiveProjectTask(){
     const allTask = Task.getTask()
    const allProjects = UI.getProjectName()
-    const giveMeActiveProject = parseInt(UI.getSelected()[0])||0
-    console.log('yes')
-    
+    let giveMeActiveProject = parseInt(UI.getSelected()[0])||0
+    if(giveMeActiveProject){
+      return
+    }else{
+      giveMeActiveProject =0
+    }
+    var sectionOne
+    var mainTaskContain
+    var title 
+    if(allTask.length!=0){
     allTask.forEach(task =>{
-      console.log(task.createBy,allProjects[giveMeActiveProject].name)
+       sectionOne = document.getElementById('section-1')
       if(task.createBy===allProjects[giveMeActiveProject].name){
-        
-        const sectionOne = document.getElementById('section-1')
-    sectionOne.classList.remove('d-none')
-    sectionOne.classList.add('d-block','mt-3')
-    const taskTitle=document.createElement('h5')
+
+      sectionOne.classList.remove('d-none')
+      sectionOne.classList.add('d-block','mt-3')
+      const taskTitle=document.createElement('h5')
         taskTitle.innerHTML = task.title
-        const mainTaskContain = document.createElement('div')
+          mainTaskContain = document.createElement('div')
         mainTaskContain.classList.add('d-flex','flex-wrap')
         taskTitle.classList.add('text-success','bg-grey','card-title')
-        const cardContain = document.createElement('div')
+        const  cardContain = document.createElement('div')
         cardContain.classList.add('card')
-        const cardBody = document.createElement('div')
+       const  cardBody = document.createElement('div')
         cardBody.classList.add('card-body')
-        const taskDate = document.createElement('p')
+       const  taskDate = document.createElement('p')
         taskDate.innerHTML = task.date
         taskDate.classList.add('card-text')
         const taskDescription = document.createElement('p')
         taskDescription.innerHTML = task.description
    const addHeader = document.getElementById('add-class-header')
-   const title = document.createElement('h4')
-   const adtask = document.createElement('div')
+    title = document.createElement('h4')
+  title.innerHTML = task.createBy;
+  title.classList.add('text-center')
+  cardBody.appendChild(taskTitle)
+  cardBody.appendChild(taskDescription)
+  cardBody.appendChild(taskDate)
+  cardContain.appendChild(cardBody)
+
+  mainTaskContain.appendChild(cardContain)
+  sectionOne.appendChild(mainTaskContain)
+  
+ 
+  // sectionOne.appendChild(adtask)
+ 
+  
+   
+      }
+    })
+    
    const plusBtn = document.createElement('div')
    plusBtn.innerHTML = '+'
    plusBtn.style.cursor ='pointer'
-   adtask.innerHTML = 'Add task'
-   adtask.appendChild(plusBtn)
-   title.innerHTML = task.createBy;
+   sectionOne.appendChild(mainTaskContain)
+   sectionOne.insertBefore(title,sectionOne.firstChild)
+   sectionOne.appendChild(plusBtn)
    plusBtn.addEventListener('click',()=>{
      const taskForm = document.getElementById('task-form')
      taskForm.classList.remove('d-none')
      taskForm.classList.add('d-block')
    })
-   cardBody.appendChild(taskTitle)
-   cardBody.appendChild(taskDescription)
-   cardBody.appendChild(taskDate)
-   cardContain.appendChild(cardBody)
-   mainTaskContain.appendChild(cardContain)
-   adtask.appendChild(plusBtn)
-   sectionOne.appendChild(adtask)
-   sectionOne.insertBefore(title,adtask)
-   sectionOne.insertBefore(mainTaskContain,title)
-        
-      }
-    })
+    }else{  sectionOne = document.getElementById('section-1')
+      sectionOne.classList.remove('d-none')
+      sectionOne.classList.add('d-block','mt-3')
+      const plusBtn = document.createElement('div')
+      const titre = document.createElement('div')
+      titre.innerHTML="default"
+      titre.classList.add('text-center')
+      plusBtn.innerHTML = '+'
+      plusBtn.style.cursor ='pointer'
+      sectionOne.appendChild(titre)
+      sectionOne.appendChild(plusBtn)
+      plusBtn.addEventListener('click',()=>{
+        const taskForm = document.getElementById('task-form')
+        taskForm.classList.remove('d-none')
+        taskForm.classList.add('d-block')
+      })
+    }
   }
   static renderDefault(){
     const deefaultElement = UI.getProjectName()
@@ -113,12 +146,13 @@ export default class UI {
       deefault.style.cursor ='pointer'
       deefault.addEventListener('click',()=>{
         UI.synchro(deefault)
-        const giveMeActiveProject = parseInt(UI.getSelected()[0])||0
-        console.log(deefaultElementOne[giveMeActiveProject].name)
-        UI.addActiveProjectTask()
+          document.getElementById('section-1').innerHTML =''
+         UI.addActiveProjectTask()
+        //  UI.delay()
       })
       sideNave.appendChild(deefault)
-      UI.addActiveProjectTask()
+       document.getElementById('section-1').innerHTML =''
+       UI.addActiveProjectTask()
   }
   static showAlert(message, className) {
     const div = document.createElement('div');
@@ -155,8 +189,6 @@ export default class UI {
     const sectionOne = document.getElementById('section-1')
     sectionOne.classList.remove('d-none')
     sectionOne.classList.add('d-block')
-    // console.log(typeof argument.textContent)
-    // title.innerHTML =argument.value
   }
   static renderSelected(element){
     const storedProjects = UI.getProjectName();

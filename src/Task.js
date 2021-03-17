@@ -22,7 +22,6 @@ export default class Task {
 
   static storeTask(task) {
     const tasks = Task.getTask();
-    console.log(Task.getTask())
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
     
