@@ -2,7 +2,6 @@ import { compareAsc, format } from 'date-fns'
  import UI from './UI.js'
  import Project from './Project'
  import Task from './Task'
-
 // class UI {
 //   static getProjectName() {
 //     let projects;
@@ -11,7 +10,6 @@ import { compareAsc, format } from 'date-fns'
 //     } else {
 //       projects = JSON.parse(localStorage.getItem('projects'));
 //     }
-
 //     return projects;
 //   }
 //   static getSelected() {
@@ -24,7 +22,6 @@ import { compareAsc, format } from 'date-fns'
 //     return selectedId;
 //   }
 //   static storeSelected(element) {
-    
 //     let selectedId = UI.getSelected();
 //     while( selectedId.length > 0) {
 //        selectedId.pop();
@@ -45,7 +42,6 @@ import { compareAsc, format } from 'date-fns'
 //       currentNumber += 1;
 //       localStorage.setItem('lastProjectId', currentNumber);
 //     }
-
 //     return currentNumber;
 //   }
 //   static renderDefault(){
@@ -91,7 +87,6 @@ import { compareAsc, format } from 'date-fns'
 //     adtask.appendChild(plusBtn)
 //     sectionOne.appendChild(adtask)
 //     sectionOne.insertBefore(title,adtask)
-   
 //   }
 //   static displayAddTask(){
 //     const sectionOne = document.getElementById('section-1')
@@ -103,7 +98,6 @@ import { compareAsc, format } from 'date-fns'
 //   static renderSelected(element){
 //     const storedProjects = UI.getProjectName();
 //     const mainContain= document.getElementById('sideNavListchild')
-   
 //     mainContain.innerHTML = ''
 //     UI.renderDefault()
 //     storedProjects.forEach(project => {
@@ -124,14 +118,10 @@ import { compareAsc, format } from 'date-fns'
 // static renderRefresh(){
 //   const currentItemId = UI.getSelected()
 //   UI.renderSelected(currentItemId)
-  
 // }
-  
-  
 // static addProjectName() {
 //     const storedProjects = UI.getProjectName();
 //     const mainContain= document.getElementById('sideNavListchild')
-   
 //     mainContain.innerHTML = ''
 //     UI.renderDefault()
 //     storedProjects.forEach(project => {
@@ -159,39 +149,38 @@ import { compareAsc, format } from 'date-fns'
 //       nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
 //     }})
 // }
-
 // }
-function renderAddTaskScreen(id){
-  const stored = UI.getProjectName()
-  stored.forEach((el,index)=>{
-   if(index===id){
-     console.log(index)
-   const sectionOne = document.getElementById('section-1')
-   sectionOne.classList.remove('d-none')
-   sectionOne.classList.add('d-block')
-     sectionOne.innerHTML =''
-     const addHeader = document.getElementById('add-class-header')
-     const title = document.createElement('h4')
-     const adtask = document.createElement('div')
-     const plusBtn = document.createElement('div')
-     plusBtn.innerHTML = '+'
-     plusBtn.style.cursor ='pointer'
-     adtask.innerHTML = 'Add task'
-     adtask.appendChild(plusBtn)
-     title.innerHTML = el.name;
-     adtask.appendChild(plusBtn)
-     sectionOne.appendChild(adtask)
-     sectionOne.insertBefore(title,adtask)
-     return
-    
-   }
-  })
-  
-  
-}
- document.getElementById('section-1').classList.add('d-none')
+// function renderAddTaskScreen(id){
+//   const stored = UI.getProjectName()
+//   stored.forEach((el,index)=>{
+//    if(index===id){
+//      console.log(index)
+//    const sectionOne = document.getElementById('section-1')
+//    sectionOne.classList.remove('d-none')
+//    sectionOne.classList.add('d-block')
+//      sectionOne.innerHTML =''
+//      const addHeader = document.getElementById('add-class-header')
+//      const title = document.createElement('h4')
+//      const adtask = document.createElement('div')
+//      const plusBtn = document.createElement('div')
+//      plusBtn.innerHTML = '+'
+//      plusBtn.style.cursor ='pointer'
+//      adtask.innerHTML = 'Add task'
+//      adtask.appendChild(plusBtn)
+//      title.innerHTML = el.name;
+//      adtask.appendChild(plusBtn)
+//      sectionOne.appendChild(adtask)
+//      sectionOne.insertBefore(title,adtask)
+//      return
+//    }
+//   })
+//}
+document.getElementById('section-1').classList.add('d-none');
 window.removeProject = (projectNumber) => {
   const projects = UI.getProjectName();
+  const selectedId =UI.getSelected()
+  selectedId.pop()
+  UI.storeSelected(selectedId)
   projects.forEach((project, index) => {
     if (project.number === projectNumber) {
       projects.splice(index, 1);
@@ -205,12 +194,9 @@ window.removeProject = (projectNumber) => {
     window.location.reload();
   }, 3000);
 };
-
-
 document.getElementById('project-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
-
   const title = document.querySelector('#title').value;
   if (title === '') {
     UI.showAlert('Please fill in all fields', 'danger');
@@ -225,23 +211,19 @@ document.getElementById('project-form').addEventListener('submit', (e) => {
     }, 3000);
   }
 });
-
 document.getElementById('task-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
-
   const title = document.querySelector('#titletwo').value;
   const description = document.getElementById('description').value;
    const date = document.querySelector('#date').value
   const priority = document.querySelector('input[name="priority"]:checked').value
   if (title === ''||description===''||date ==''|| priority==undefined) {
-  
     UI.showAlert('Please fill in all fields', 'danger');
     setTimeout(() => {
       window.location.reload();
     }, 3000);
   } else {
-    // console.log(Task.countTask())
     const giveMeActiveProject = UI.getSelected()
     const giveStoredProjects = UI.getProjectName()
     if((giveMeActiveProject.length===0)||(giveMeActiveProject[0].length===0)){
@@ -252,19 +234,18 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     Task.storeTask(task);
   }
     UI.showAlert('Task added successfuly', 'success');
-    UI.delay()
+    UI.delay();
   }
 });
+//UI.renderDefault();
+// const giveMeActiveProject = parseInt(UI.getSelected()[0]);
+// renderAddTaskScreen(giveMeActiveProject) ;
+document.addEventListener('DOMContentLoaded', 
+UI.addProjectName(),
+UI.renderRefresh(),
+UI.addActiveProjectTask());
 
- UI.renderDefault()
- UI.addActiveProjectTask()
-const giveMeActiveProject = parseInt(UI.getSelected()[0])
-renderAddTaskScreen(giveMeActiveProject)
-console.log(giveMeActiveProject)
-// const giveStoredProjects = UI.getProjectName()
-// console.log(UI.getProjectName()[0].tasks)
-//  console.log( Task.getTask()[Task.getTask().length-1] )
-window.addEventListener('load',UI.addActiveProjectTask())
-document.addEventListener('DOMContentLoaded', UI.addProjectName(),UI.renderRefresh(),renderAddTaskScreen(giveMeActiveProject),UI.addActiveProjectTask());,renderAddTaskScreen(giveMeActiveProject));
 
-    //  localStorage.clear()
+
+
+

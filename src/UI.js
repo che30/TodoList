@@ -13,7 +13,6 @@ export default class UI {
     } else {
       projects = JSON.parse(localStorage.getItem('projects'));
     }
-
     return projects;
   }
   static getSelected() {
@@ -26,7 +25,6 @@ export default class UI {
     return selectedId;
   }
   static storeSelected(element) {
-    
     let selectedId = UI.getSelected();
     while( selectedId.length > 0) {
        selectedId.pop();
@@ -47,7 +45,6 @@ export default class UI {
       currentNumber += 1;
       localStorage.setItem('lastProjectId', currentNumber);
     }
-
     return currentNumber;
   }
   static addActiveProjectTask(){
@@ -55,54 +52,45 @@ export default class UI {
    const allProjects = UI.getProjectName()
     let giveMeActiveProject = parseInt(UI.getSelected()[0])||0
     if(giveMeActiveProject){
-      return
+      giveMeActiveProject =giveMeActiveProject
     }else{
       giveMeActiveProject =0
     }
-    var sectionOne
-    var mainTaskContain
-    var title 
+    var sectionOne = document.getElementById('section-1');
+    sectionOne.innerHTML=''
+    var mainTaskContain = document.createElement('div');
+    var title = document.createElement('h4');
     if(allTask.length!=0){
-    allTask.forEach(task =>{
-       sectionOne = document.getElementById('section-1')
-      if(task.createBy===allProjects[giveMeActiveProject].name){
-
-      sectionOne.classList.remove('d-none')
-      sectionOne.classList.add('d-block','mt-3')
-      const taskTitle=document.createElement('h5')
+      console.log(giveMeActiveProject)
+        allTask.forEach(task =>{
+        if(task.createBy===allProjects[giveMeActiveProject].name){
+        sectionOne.classList.remove('d-none')
+        sectionOne.classList.add('d-block','mt-3')
+        const taskTitle=document.createElement('h5')
         taskTitle.innerHTML = task.title
-          mainTaskContain = document.createElement('div')
-        mainTaskContain.classList.add('d-flex','flex-wrap')
+        mainTaskContain.classList.add('d-flex','flex-wrap','justify-content-around')
         taskTitle.classList.add('text-success','bg-grey','card-title')
         const  cardContain = document.createElement('div')
         cardContain.classList.add('card')
-       const  cardBody = document.createElement('div')
+        const  cardBody = document.createElement('div')
         cardBody.classList.add('card-body')
-       const  taskDate = document.createElement('p')
+        const  taskDate = document.createElement('p')
         taskDate.innerHTML = task.date
         taskDate.classList.add('card-text')
         const taskDescription = document.createElement('p')
         taskDescription.innerHTML = task.description
-   const addHeader = document.getElementById('add-class-header')
-    title = document.createElement('h4')
-  title.innerHTML = task.createBy;
-  title.classList.add('text-center')
-  cardBody.appendChild(taskTitle)
-  cardBody.appendChild(taskDescription)
-  cardBody.appendChild(taskDate)
-  cardContain.appendChild(cardBody)
-
-  mainTaskContain.appendChild(cardContain)
-  sectionOne.appendChild(mainTaskContain)
-  
- 
-  // sectionOne.appendChild(adtask)
- 
-  
-   
+        const addHeader = document.getElementById('add-class-header');
+        title.innerHTML = task.createBy;
+        title.classList.add('text-center')
+        cardBody.appendChild(taskTitle)
+        cardBody.appendChild(taskDescription)
+        cardBody.appendChild(taskDate)
+        cardContain.appendChild(cardBody)
+        mainTaskContain.appendChild(cardContain)
+        sectionOne.appendChild(mainTaskContain)
+        // sectionOne.appendChild(adtask)
       }
     })
-    
    const plusBtn = document.createElement('div')
    plusBtn.innerHTML = '+'
    plusBtn.style.cursor ='pointer'
@@ -114,23 +102,25 @@ export default class UI {
      taskForm.classList.remove('d-none')
      taskForm.classList.add('d-block')
    })
-    }else{  sectionOne = document.getElementById('section-1')
-      sectionOne.classList.remove('d-none')
-      sectionOne.classList.add('d-block','mt-3')
-      const plusBtn = document.createElement('div')
-      const titre = document.createElement('div')
-      titre.innerHTML="default"
-      titre.classList.add('text-center')
-      plusBtn.innerHTML = '+'
-      plusBtn.style.cursor ='pointer'
-      sectionOne.appendChild(titre)
-      sectionOne.appendChild(plusBtn)
-      plusBtn.addEventListener('click',()=>{
-        const taskForm = document.getElementById('task-form')
-        taskForm.classList.remove('d-none')
-        taskForm.classList.add('d-block')
-      })
     }
+    // else{
+    //   sectionOne = document.getElementById('section-1');
+    //   sectionOne.classList.remove('d-none')
+    //   sectionOne.classList.add('d-block','mt-3')
+    //   const plusBtn = document.createElement('div')
+    //   //const titre = document.createElement('div')
+    //   // titre.innerHTML="default"
+    //   // titre.classList.add('text-center')
+    //   plusBtn.innerHTML = '+'
+    //   plusBtn.style.cursor ='pointer'
+    //   //sectionOne.appendChild(titre)
+    //   sectionOne.appendChild(plusBtn)
+    //   plusBtn.addEventListener('click',()=>{
+    //     const taskForm = document.getElementById('task-form')
+    //     taskForm.classList.remove('d-none')
+    //     taskForm.classList.add('d-block')
+    //   })
+    // }
   }
   static renderDefault(){
     const deefaultElement = UI.getProjectName()
@@ -146,9 +136,9 @@ export default class UI {
       deefault.style.cursor ='pointer'
       deefault.addEventListener('click',()=>{
         UI.synchro(deefault)
-          document.getElementById('section-1').innerHTML =''
+          // document.getElementById('section-1').innerHTML =''
          UI.addActiveProjectTask()
-        //  UI.delay()
+          // UI.delay()
       })
       sideNave.appendChild(deefault)
        document.getElementById('section-1').innerHTML =''
@@ -162,28 +152,27 @@ export default class UI {
     container.appendChild(div);
   }
   static synchro(argument){
-    const sectionOne = document.getElementById('section-1')
-    sectionOne.innerHTML =''
-    sectionOne.classList.remove('d-none')
-    sectionOne.classList.add('d-block')
-    const addHeader = document.getElementById('add-class-header')
-    const title = document.createElement('h4')
-    const adtask = document.createElement('div')
-    const plusBtn = document.createElement('div')
-    plusBtn.innerHTML = '+'
-    plusBtn.style.cursor ='pointer'
-    adtask.innerHTML = 'Add task'
-    adtask.appendChild(plusBtn)
+    const sectionOne = document.getElementById('section-1');
+    sectionOne.innerHTML ='';
+    sectionOne.classList.remove('d-none');
+    sectionOne.classList.add('d-block');
+    const addHeader = document.getElementById('add-class-header');
+    const title = document.createElement('h4');
+    const adtask = document.createElement('div');
+    const plusBtn = document.createElement('div');
+    plusBtn.innerHTML = '+';
+    plusBtn.style.cursor ='pointer';
+    adtask.innerHTML = 'Add task';
+    adtask.appendChild(plusBtn);
     title.innerHTML = argument.textContent;
     plusBtn.addEventListener('click',()=>{
-      const taskForm = document.getElementById('task-form')
-      taskForm.classList.remove('d-none')
-      taskForm.classList.add('d-block')
+      const taskForm = document.getElementById('task-form');
+      taskForm.classList.remove('d-none');
+      taskForm.classList.add('d-block');
     })
     adtask.appendChild(plusBtn)
     sectionOne.appendChild(adtask)
     sectionOne.insertBefore(title,adtask)
-   
   }
   static displayAddTask(){
     const sectionOne = document.getElementById('section-1')
@@ -193,61 +182,59 @@ export default class UI {
   static renderSelected(element){
     const storedProjects = UI.getProjectName();
     const mainContain= document.getElementById('sideNavListchild')
-   
     mainContain.innerHTML = ''
     UI.renderDefault()
     storedProjects.forEach(project => {
       if(project.number!=0){
-      const nextElement = document.createElement('li');
-      nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
-      nextElement.classList.add('text-white', 'text-center', 'mt-4','list-unstyled');
-      nextElement.id =  project.number
-      // if(parseInt(element[0]===nextElement.id)
-     if(parseInt(element[0])=== parseInt(nextElement.id)){
-      nextElement.classList.add('text-danger')
-     }
-      nextElement.style.cursor = 'pointer';
-      mainContain.appendChild(nextElement)
-      nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
+        const nextElement = document.createElement('li');
+        nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
+        nextElement.classList.add('text-white', 'text-center', 'mt-4','list-unstyled');
+        nextElement.id =  project.number
+        if(parseInt(element[0])=== parseInt(nextElement.id)){
+          nextElement.classList.add('text-danger');
+          UI.synchro(nextElement);
+        }
+        nextElement.style.cursor = 'pointer';
+        mainContain.appendChild(nextElement)
+        nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
     }})
 }
 static renderRefresh(){
   const currentItemId = UI.getSelected()
   UI.renderSelected(currentItemId)
-  
 }
-  
-  
 static addProjectName() {
     const storedProjects = UI.getProjectName();
-    const mainContain= document.getElementById('sideNavListchild')
-   
-    mainContain.innerHTML = ''
-    UI.renderDefault()
+    const mainContain= document.getElementById('sideNavListchild');
+    mainContain.innerHTML = '';
+    //UI.renderDefault()
     storedProjects.forEach(project => {
       if(project.number!=0){
-      const nextElement = document.createElement('li');
-      nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
-      nextElement.classList.add('text-white', 'text-center', 'mt-4','list-unstyled');
-      nextElement.id =  project.number
-      nextElement.style.cursor = 'pointer';
-      mainContain.appendChild(nextElement)
-      mainContain.addEventListener('click',e =>{
-        if(e.target.tagName.toLowerCase()==='li'){
-          // document.getElementById('section-1').classList.add('d-block')
-          UI.displayAddTask()
-          UI.storeSelected(e.target.id)
-          const selectedId = UI.getSelected()
-          UI.renderSelected(selectedId)
-          const taskForm = document.getElementById('task-form')
-          taskForm.classList.remove('d-block')
-          taskForm.classList.add('d-none')
-          e.target.setAttribute('onclick',UI.synchro(e.target))
-          // renderAddTaskScreen(parseInt(e.target.id))
-        }
-      })
-      nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
+        const nextElement = document.createElement('li');
+        nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
+        nextElement.classList.add('text-white', 'text-center', 'mt-4','list-unstyled');
+        nextElement.id =  project.number
+        nextElement.style.cursor = 'pointer';
+        mainContain.appendChild(nextElement);
+        mainContain.addEventListener('click',e =>{
+          if(e.target.tagName.toLowerCase()==='li'){
+            // document.getElementById('section-1').classList.add('d-block')
+            UI.displayAddTask()
+            UI.storeSelected(e.target.id)
+            const selectedId = UI.getSelected()
+            UI.renderSelected(selectedId)
+            const taskForm = document.getElementById('task-form')
+            taskForm.classList.remove('d-block')
+            taskForm.classList.add('d-none')
+            e.target.setAttribute('onclick',UI.synchro(e.target))
+            // renderAddTaskScreen(parseInt(e.target.id))
+          }
+        })
+        nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`)
     }})
 }
-
 }
+
+
+
+
