@@ -194,6 +194,11 @@ window.removeProject = (projectNumber) => {
     window.location.reload();
   }, 3000);
 };
+var span = document.getElementsByClassName("close")[0]
+span.onclick = function() {
+  document.getElementById('task-form').classList.remove('d-block')
+  document.getElementById('task-form').classList.add('d-none')
+}
 document.getElementById('project-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
