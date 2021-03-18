@@ -179,18 +179,28 @@ document.getElementById('section-1').classList.add('d-none');
 window.removeProject = (projectNumber) => {
   const projects = UI.getProjectName();
   const selectedId =UI.getSelected()
-  selectedId.pop()
-  UI.storeSelected(selectedId)
-  projects.forEach((project, index) => {
-    if (project.number === projectNumber) {
-      projects.splice(index, 1);
+  const tasks= Task.getTask()
+  tasks.forEach((task,index) =>{
+    console.log(task.createBy)
+    console.log(projects[parseInt(projectNumber)])
+    if(task.createBy===projects[parseInt(projectNumber)].name){
+      console.log("yes")
+    tasks.splice(index,1)
+      localStorage.setItem('tasks',JSON.stringify(tasks))
     }
-  });
-  document.getElementById(projectNumber).remove();
-  localStorage.setItem('projects', JSON.stringify(projects));
-  UI.addProjectName();
-  UI.showAlert('Project Removed', 'success');
- UI.delay()
+  })
+   selectedId.pop()
+   UI.storeSelected(selectedId)
+   projects.forEach((project, index) => {
+     if (project.number === projectNumber) {
+       projects.splice(index, 1);
+     }
+   });
+   document.getElementById(projectNumber).remove();
+   localStorage.setItem('projects', JSON.stringify(projects));
+   UI.addProjectName();
+   UI.showAlert('Project Removed', 'success');
+  UI.delay()
 };
 window.removeTask=(taskNumber)=>{
   const tasks = Task.getTask();
