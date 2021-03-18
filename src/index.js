@@ -190,10 +190,47 @@ window.removeProject = (projectNumber) => {
   localStorage.setItem('projects', JSON.stringify(projects));
   UI.addProjectName();
   UI.showAlert('Project Removed', 'success');
-  setTimeout(() => {
-    window.location.reload();
-  }, 3000);
+ UI.delay()
 };
+window.removeTask=(taskNumber)=>{
+  const tasks = Task.getTask();
+  tasks.forEach((task,index) =>{
+    if(parseInt(task.now) ===taskNumber){
+      tasks.splice(index, 1);
+      document.getElementById(taskNumber).parentNode.parentNode.parentNode.remove()
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      UI.showAlert('Task Removed', 'success');
+      UI.delay()
+   
+    }
+  })
+
+}
+window.editTask =(taskNumber)=>{
+  let editId
+  let toBeEdited
+  const tasks = Task.getTask();
+  tasks.forEach((task,index) =>{
+    if(parseInt(task.now) ===taskNumber){
+      console.log("success")
+      editId =taskNumber
+      toBeEdited = task
+      tasks.splice(index, 1);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      // document.getElementById(taskNumber).parentNode.parentNode.parentNode.remove()
+
+    }
+   
+  })
+  document.getElementById(taskNumber)
+    document.getElementById('task-form').classList.remove('d-none')
+    document.getElementById('task-form').classList.add('d-block')
+    const title = document.querySelector('#titletwo').value=toBeEdited.title
+  const description = document.getElementById('description').value=toBeEdited.description
+   const date = document.querySelector('#date').value = toBeEdited.date
+
+
+}
 var span = document.getElementsByClassName("close")[0]
 span.onclick = function() {
   document.getElementById('task-form').classList.remove('d-block')
