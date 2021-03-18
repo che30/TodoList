@@ -1,4 +1,4 @@
-/* eslint consistent-return: "error" */
+
 import Project from './Project';
 import Task from './Task';
 
@@ -129,12 +129,10 @@ export default class UI {
               read = false;
             }
           });
-        // sectionOne.appendChild(adtask)
         }
       });
       const plusBtn = document.createElement('div');
       plusBtn.innerHTML = '+';
-      // plusBtn.style.position ='fixed'
       plusBtn.style.fontSize = '50px';
       sectionOne.appendChild(mainTaskContain);
       sectionOne.insertBefore(title, sectionOne.firstChild);
@@ -145,24 +143,6 @@ export default class UI {
         taskForm.classList.add('d-block');
       });
     }
-    // else{
-    //   sectionOne = document.getElementById('section-1');
-    //   sectionOne.classList.remove('d-none')
-    //   sectionOne.classList.add('d-block','mt-3')
-    //   const plusBtn = document.createElement('div')
-    //   //const titre = document.createElement('div')
-    //   // titre.innerHTML="default"
-    //   // titre.classList.add('text-center')
-    //   plusBtn.innerHTML = '+'
-    //   plusBtn.style.cursor ='pointer'
-    //   //sectionOne.appendChild(titre)
-    //   sectionOne.appendChild(plusBtn)
-    //   plusBtn.addEventListener('click',()=>{
-    //     const taskForm = document.getElementById('task-form')
-    //     taskForm.classList.remove('d-none')
-    //     taskForm.classList.add('d-block')
-    //   })
-    // }
   }
 
   static renderDefault() {
@@ -179,12 +159,10 @@ export default class UI {
     deefault.style.cursor = 'pointer';
     deefault.addEventListener('click', () => {
       UI.synchro(deefault);
-      // document.getElementById('section-1').innerHTML =''
       UI.addActiveProjectTask();
-      // UI.delay()
     });
     sideNave.appendChild(deefault);
-    document.getElementById('section-1').innerHTML = '';
+    // document.getElementById('section-1').innerHTML = '';
     UI.addActiveProjectTask();
   }
 
@@ -201,7 +179,6 @@ export default class UI {
     sectionOne.innerHTML = '';
     sectionOne.classList.remove('d-none');
     sectionOne.classList.add('d-block');
-    // const addHeader = document.getElementById('add-class-header');
     const title = document.createElement('h4');
     const adtask = document.createElement('div');
     const plusBtn = document.createElement('div');
@@ -257,7 +234,6 @@ export default class UI {
     const storedProjects = UI.getProjectName();
     const mainContain = document.getElementById('sideNavListchild');
     mainContain.innerHTML = '';
-    // UI.renderDefault()
     storedProjects.forEach(project => {
       if (project.number !== 0) {
         const nextElement = document.createElement('li');
@@ -268,16 +244,15 @@ export default class UI {
         mainContain.appendChild(nextElement);
         mainContain.addEventListener('click', e => {
           if (e.target.tagName.toLowerCase() === 'li') {
-            // document.getElementById('section-1').classList.add('d-block')
             UI.displayAddTask();
             UI.storeSelected(e.target.id);
             const selectedId = UI.getSelected();
             UI.renderSelected(selectedId);
-            const taskForm = document.getElementById('task-form');
-            taskForm.classList.remove('d-block');
-            taskForm.classList.add('d-none');
+            UI.renderRefresh();
+            // const taskForm = document.getElementById('task-form');
+            // taskForm.classList.remove('d-block');
+            // taskForm.classList.add('d-none');
             e.target.setAttribute('onclick', UI.synchro(e.target));
-            // renderAddTaskScreen(Number(e.target.id))
           }
         });
         nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`);

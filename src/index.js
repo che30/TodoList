@@ -1,4 +1,4 @@
-/* eslint-disable  consistent-return */
+
 import UI from './UI';
 import Project from './Project';
 import Task from './Task';
@@ -47,7 +47,6 @@ window.editTask = (taskNumber) => {
       toBeEdited = task;
       tasks.splice(index, 1);
       localStorage.setItem('tasks', JSON.stringify(tasks));
-      // document.getElementById(taskNumber).parentNode.parentNode.parentNode.remove()
     }
   });
   document.getElementById(taskNumber);
@@ -115,9 +114,7 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     UI.delay();
   }
 });
-// UI.renderDefault();
-// const giveMeActiveProject = Number(UI.getSelected()[0]);
-// renderAddTaskScreen(giveMeActiveProject) ;
+//  UI.renderDefault();
 document.addEventListener('DOMContentLoaded',
   UI.addProjectName(),
   UI.renderRefresh(),
