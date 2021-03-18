@@ -20,6 +20,9 @@
   border: none;
   width: 210%;
 }
+#project-form{
+margin-top: 30px;
+}
 .projects
 {
   cursor: pointer;
