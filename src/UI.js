@@ -162,7 +162,7 @@ export default class UI {
       UI.addActiveProjectTask();
     });
     sideNave.appendChild(deefault);
-     document.getElementById('section-1').innerHTML = '';
+    document.getElementById('section-1').innerHTML = '';
     UI.addActiveProjectTask();
   }
 
