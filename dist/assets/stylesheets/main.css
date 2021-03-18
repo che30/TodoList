@@ -58,6 +58,7 @@ margin-top: 30px;
   padding: 20px;
   border: 1px solid #888;
   width: 35%;
+  border-radius: 25px;
 }
 .close{
   color: #aaaaaa;

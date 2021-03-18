@@ -1,3 +1,4 @@
+/* eslint consistent-return: "error" */
 import Project from './Project';
 import Task from './Task';
 
@@ -7,14 +8,16 @@ export default class UI {
       window.location.reload();
     }, 3000);
   }
-  static renderColours(priority){
-    if(priority==='high'){
-      return '#FF33F9'
-    }else if(priority=='medium'){
-      return ' #334FFF'
-    }else if(priority ==='low'){
-      return '#C70039'
+
+  static renderColours(priority) {
+    if (priority === 'high') {
+      return '#FF33F9';
+    } if (priority === 'medium') {
+      return ' #334FFF';
+    } if (priority === 'low') {
+      return '#C70039';
     }
+    return false;
   }
 
   static getProjectName() {
@@ -66,17 +69,16 @@ export default class UI {
   static addActiveProjectTask() {
     const allTask = Task.getTask();
     const allProjects = UI.getProjectName();
-    let giveMeActiveProject = parseInt(UI.getSelected()[0]) || 0;
-    if (giveMeActiveProject) {
-      giveMeActiveProject = giveMeActiveProject;
-    } else {
+    let giveMeActiveProject = Number(UI.getSelected()[0]) || 0;
+    if (giveMeActiveProject === '') {
       giveMeActiveProject = 0;
     }
     const sectionOne = document.getElementById('section-1');
-    sectionOne.innerHTML = '';
+
     const mainTaskContain = document.createElement('div');
     const title = document.createElement('h4');
-    if (allTask.length != 0) {
+    if (allTask.length !== 0) {
+      sectionOne.innerHTML = '';
       allTask.forEach(task => {
         if (task.createBy === allProjects[giveMeActiveProject].name) {
           sectionOne.classList.remove('d-none');
@@ -84,7 +86,7 @@ export default class UI {
           const taskTitle = document.createElement('h5');
           taskTitle.innerHTML = task.title;
           mainTaskContain.classList.add('d-flex', 'flex-wrap', 'justify-content-around');
-          mainTaskContain.id = task.id
+          mainTaskContain.id = task.id;
           taskTitle.classList.add('text-success', 'bg-grey', 'card-title');
           const cardContain = document.createElement('div');
           cardContain.classList.add('card');
@@ -105,7 +107,7 @@ export default class UI {
           taskDate.classList.add('card-text');
           const taskDescription = document.createElement('p');
           taskDescription.innerHTML = task.description;
-          cardContain.style.background =`${UI.renderColours(task.priority)}`
+          cardContain.style.background = `${UI.renderColours(task.priority)}`;
           title.innerHTML = task.createBy;
           title.classList.add('text-center');
           containAction.appendChild(edit);
@@ -117,27 +119,22 @@ export default class UI {
           cardContain.appendChild(cardBody);
           mainTaskContain.appendChild(cardContain);
           sectionOne.appendChild(mainTaskContain);
-          let read = false
-          cardBody.addEventListener('click',()=>{
-            if(read ===false) {
-              cardBody.classList.add('bg-dark')
-              read=true
-            }else{
-              cardBody.classList.remove('bg-dark')
-              read =false}
-            
-          })
+          let read = false;
+          cardBody.addEventListener('click', () => {
+            if (read === false) {
+              cardBody.classList.add('bg-dark');
+              read = true;
+            } else {
+              cardBody.classList.remove('bg-dark');
+              read = false;
+            }
+          });
         // sectionOne.appendChild(adtask)
         }
       });
       const plusBtn = document.createElement('div');
       plusBtn.innerHTML = '+';
       // plusBtn.style.position ='fixed'
-      plusBtn.style.right = '-330px';
-      plusBtn.style.top = '-80%';
-      plusBtn.style.bottom = '-500px';
-      plusBtn.style.position = 'relative';
-      plusBtn.style.cursor = 'pointer';
       plusBtn.style.fontSize = '50px';
       sectionOne.appendChild(mainTaskContain);
       sectionOne.insertBefore(title, sectionOne.firstChild);
@@ -204,18 +201,13 @@ export default class UI {
     sectionOne.innerHTML = '';
     sectionOne.classList.remove('d-none');
     sectionOne.classList.add('d-block');
-    const addHeader = document.getElementById('add-class-header');
+    // const addHeader = document.getElementById('add-class-header');
     const title = document.createElement('h4');
     const adtask = document.createElement('div');
     const plusBtn = document.createElement('div');
     plusBtn.innerHTML = '+';
-    plusBtn.style.right = '0px';
-    plusBtn.style.bottom = '0px';
-    plusBtn.style.position = 'relative';
-    plusBtn.style.cursor = 'pointer';
     plusBtn.style.fontSize = '50px';
     plusBtn.style.cursor = 'pointer';
-    adtask.innerHTML = 'Add task';
     adtask.appendChild(plusBtn);
     title.innerHTML = argument.textContent;
     plusBtn.addEventListener('click', () => {
@@ -240,12 +232,12 @@ export default class UI {
     mainContain.innerHTML = '';
     UI.renderDefault();
     storedProjects.forEach(project => {
-      if (project.number != 0) {
+      if (project.number !== 0) {
         const nextElement = document.createElement('li');
         nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
         nextElement.classList.add('text-white', 'text-center', 'mt-4', 'list-unstyled');
         nextElement.id = project.number;
-        if (parseInt(element[0]) === parseInt(nextElement.id)) {
+        if (Number(element[0]) === Number(nextElement.id)) {
           nextElement.classList.add('text-danger');
           UI.synchro(nextElement);
         }
@@ -267,7 +259,7 @@ export default class UI {
     mainContain.innerHTML = '';
     // UI.renderDefault()
     storedProjects.forEach(project => {
-      if (project.number != 0) {
+      if (project.number !== 0) {
         const nextElement = document.createElement('li');
         nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
         nextElement.classList.add('text-white', 'text-center', 'mt-4', 'list-unstyled');
@@ -285,7 +277,7 @@ export default class UI {
             taskForm.classList.remove('d-block');
             taskForm.classList.add('d-none');
             e.target.setAttribute('onclick', UI.synchro(e.target));
-            // renderAddTaskScreen(parseInt(e.target.id))
+            // renderAddTaskScreen(Number(e.target.id))
           }
         });
         nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`);
