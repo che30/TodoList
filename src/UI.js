@@ -249,9 +249,6 @@ export default class UI {
             const selectedId = UI.getSelected();
             UI.renderSelected(selectedId);
             UI.renderRefresh();
-            // const taskForm = document.getElementById('task-form');
-            // taskForm.classList.remove('d-block');
-            // taskForm.classList.add('d-none');
             e.target.setAttribute('onclick', UI.synchro(e.target));
           }
         });
