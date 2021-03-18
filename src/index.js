@@ -1,7 +1,7 @@
-import { compareAsc, format } from 'date-fns'
- import UI from './UI.js'
- import Project from './Project'
- import Task from './Task'
+import { compareAsc, format } from 'date-fns';
+import UI from './UI.js';
+import Project from './Project';
+import Task from './Task';
 // class UI {
 //   static getProjectName() {
 //     let projects;
@@ -174,85 +174,79 @@ import { compareAsc, format } from 'date-fns'
 //      return
 //    }
 //   })
-//}
+// }
 document.getElementById('section-1').classList.add('d-none');
 window.removeProject = (projectNumber) => {
   const projects = UI.getProjectName();
-  const selectedId =UI.getSelected()
-  const tasks= Task.getTask()
-  tasks.forEach((task,index) =>{
-    console.log(task.createBy)
-    console.log(projects[parseInt(projectNumber)])
-    if(task.createBy===projects[parseInt(projectNumber)].name){
-      console.log("yes")
-    tasks.splice(index,1)
-      localStorage.setItem('tasks',JSON.stringify(tasks))
-    }
-  })
-   selectedId.pop()
-   UI.storeSelected(selectedId)
-   projects.forEach((project, index) => {
-     if (project.number === projectNumber) {
-       projects.splice(index, 1);
-     }
-   });
-   document.getElementById(projectNumber).remove();
-   localStorage.setItem('projects', JSON.stringify(projects));
-   UI.addProjectName();
-   UI.showAlert('Project Removed', 'success');
-  UI.delay()
-};
-window.removeTask=(taskNumber)=>{
+  const selectedId = UI.getSelected();
   const tasks = Task.getTask();
-  tasks.forEach((task,index) =>{
-    if(parseInt(task.now) ===taskNumber){
+  tasks.forEach((task, index) => {
+    console.log(task.createBy);
+    console.log(projects[parseInt(projectNumber)]);
+    if (task.createBy === projects[parseInt(projectNumber)].name) {
+      console.log('yes');
       tasks.splice(index, 1);
-      document.getElementById(taskNumber).parentNode.parentNode.parentNode.remove()
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  });
+  selectedId.pop();
+  UI.storeSelected(selectedId);
+  projects.forEach((project, index) => {
+    if (project.number === projectNumber) {
+      projects.splice(index, 1);
+    }
+  });
+  document.getElementById(projectNumber).remove();
+  localStorage.setItem('projects', JSON.stringify(projects));
+  UI.addProjectName();
+  UI.showAlert('Project Removed', 'success');
+  UI.delay();
+};
+window.removeTask = (taskNumber) => {
+  const tasks = Task.getTask();
+  tasks.forEach((task, index) => {
+    if (parseInt(task.now) === taskNumber) {
+      tasks.splice(index, 1);
+      document.getElementById(taskNumber).parentNode.parentNode.parentNode.remove();
       localStorage.setItem('tasks', JSON.stringify(tasks));
       UI.showAlert('Task Removed', 'success');
-      UI.delay()
-   
+      UI.delay();
     }
-  })
-
-}
-window.editTask =(taskNumber)=>{
-  let editId
-  let toBeEdited
+  });
+};
+window.editTask = (taskNumber) => {
+  let editId;
+  let toBeEdited;
   const tasks = Task.getTask();
-  tasks.forEach((task,index) =>{
-    if(parseInt(task.now) ===taskNumber){
-      console.log("success")
-      editId =taskNumber
-      toBeEdited = task
+  tasks.forEach((task, index) => {
+    if (parseInt(task.now) === taskNumber) {
+      console.log('success');
+      editId = taskNumber;
+      toBeEdited = task;
       tasks.splice(index, 1);
       localStorage.setItem('tasks', JSON.stringify(tasks));
       // document.getElementById(taskNumber).parentNode.parentNode.parentNode.remove()
-
     }
-   
-  })
-  document.getElementById(taskNumber)
-    document.getElementById('task-form').classList.remove('d-none')
-    document.getElementById('task-form').classList.add('d-block')
-    const title = document.querySelector('#titletwo').value=toBeEdited.title
-  const description = document.getElementById('description').value=toBeEdited.description
-   const date = document.querySelector('#date').value = toBeEdited.date
-
-
-}
-var span = document.getElementsByClassName("close")[0]
-span.onclick = function() {
-  document.getElementById('task-form').classList.remove('d-block')
-  document.getElementById('task-form').classList.add('d-none')
-}
+  });
+  document.getElementById(taskNumber);
+  document.getElementById('task-form').classList.remove('d-none');
+  document.getElementById('task-form').classList.add('d-block');
+  const title = document.querySelector('#titletwo').value = toBeEdited.title;
+  const description = document.getElementById('description').value = toBeEdited.description;
+  const date = document.querySelector('#date').value = toBeEdited.date;
+};
+const span = document.getElementsByClassName('close')[0];
+span.onclick = function () {
+  document.getElementById('task-form').classList.remove('d-block');
+  document.getElementById('task-form').classList.add('d-none');
+};
 document.getElementById('project-form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
   const title = document.querySelector('#title').value;
   if (title === '') {
     UI.showAlert('Please fill in all fields', 'danger');
-   UI.delay()
+    UI.delay();
   } else {
     const project = new Project(title, UI.countProject());
     UI.storeProjectName(project);
@@ -268,36 +262,31 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const title = document.querySelector('#titletwo').value;
   const description = document.getElementById('description').value;
-   const date = document.querySelector('#date').value
-  const priority = document.querySelector('input[name="priority"]:checked').value
-  if (title === ''||description===''||date ==''|| priority==undefined) {
+  const date = document.querySelector('#date').value;
+  const priority = document.querySelector('input[name="priority"]:checked').value;
+  if (title === '' || description === '' || date == '' || priority == undefined) {
     UI.showAlert('Please fill in all fields', 'danger');
     setTimeout(() => {
       window.location.reload();
     }, 3000);
   } else {
-    const giveMeActiveProject = UI.getSelected()
-    const giveStoredProjects = UI.getProjectName()
-    if((giveMeActiveProject.length===0)||(giveMeActiveProject[0].length===0)){
-    const task = new Task(title, description , date,priority,Date.now().toString(), giveStoredProjects[0].name);
-    Task.storeTask(task);
-  }else{ 
-    const task = new Task(title, description , date,priority,Date.now().toString(), giveStoredProjects[parseInt(giveMeActiveProject[0])].name);
-    Task.storeTask(task);
-  }
+    const giveMeActiveProject = UI.getSelected();
+    const giveStoredProjects = UI.getProjectName();
+    if ((giveMeActiveProject.length === 0) || (giveMeActiveProject[0].length === 0)) {
+      const task = new Task(title, description, date, priority, Date.now().toString(), giveStoredProjects[0].name);
+      Task.storeTask(task);
+    } else {
+      const task = new Task(title, description, date, priority, Date.now().toString(), giveStoredProjects[parseInt(giveMeActiveProject[0])].name);
+      Task.storeTask(task);
+    }
     UI.showAlert('Task added successfuly', 'success');
     UI.delay();
   }
 });
-//UI.renderDefault();
+// UI.renderDefault();
 // const giveMeActiveProject = parseInt(UI.getSelected()[0]);
 // renderAddTaskScreen(giveMeActiveProject) ;
-document.addEventListener('DOMContentLoaded', 
-UI.addProjectName(),
-UI.renderRefresh(),
-UI.addActiveProjectTask());
-
-
-
-
-
+document.addEventListener('DOMContentLoaded',
+  UI.addProjectName(),
+  UI.renderRefresh(),
+  UI.addActiveProjectTask());

@@ -7,6 +7,15 @@ export default class UI {
       window.location.reload();
     }, 3000);
   }
+  static renderColours(priority){
+    if(priority==='high'){
+      return '#FF33F9'
+    }else if(priority=='medium'){
+      return ' #334FFF'
+    }else if(priority ==='low'){
+      return '#C70039'
+    }
+  }
 
   static getProjectName() {
     let projects;
@@ -75,6 +84,7 @@ export default class UI {
           const taskTitle = document.createElement('h5');
           taskTitle.innerHTML = task.title;
           mainTaskContain.classList.add('d-flex', 'flex-wrap', 'justify-content-around');
+          mainTaskContain.id = task.id
           taskTitle.classList.add('text-success', 'bg-grey', 'card-title');
           const cardContain = document.createElement('div');
           cardContain.classList.add('card');
@@ -95,7 +105,7 @@ export default class UI {
           taskDate.classList.add('card-text');
           const taskDescription = document.createElement('p');
           taskDescription.innerHTML = task.description;
-          const addHeader = document.getElementById('add-class-header');
+          cardContain.style.background =`${UI.renderColours(task.priority)}`
           title.innerHTML = task.createBy;
           title.classList.add('text-center');
           containAction.appendChild(edit);
@@ -107,12 +117,28 @@ export default class UI {
           cardContain.appendChild(cardBody);
           mainTaskContain.appendChild(cardContain);
           sectionOne.appendChild(mainTaskContain);
+          let read = false
+          cardBody.addEventListener('click',()=>{
+            if(read ===false) {
+              cardBody.classList.add('bg-dark')
+              read=true
+            }else{
+              cardBody.classList.remove('bg-dark')
+              read =false}
+            
+          })
         // sectionOne.appendChild(adtask)
         }
       });
       const plusBtn = document.createElement('div');
       plusBtn.innerHTML = '+';
+      // plusBtn.style.position ='fixed'
+      plusBtn.style.right = '-330px';
+      plusBtn.style.top = '-80%';
+      plusBtn.style.bottom = '-500px';
+      plusBtn.style.position = 'relative';
       plusBtn.style.cursor = 'pointer';
+      plusBtn.style.fontSize = '50px';
       sectionOne.appendChild(mainTaskContain);
       sectionOne.insertBefore(title, sectionOne.firstChild);
       sectionOne.appendChild(plusBtn);
@@ -183,6 +209,11 @@ export default class UI {
     const adtask = document.createElement('div');
     const plusBtn = document.createElement('div');
     plusBtn.innerHTML = '+';
+    plusBtn.style.right = '0px';
+    plusBtn.style.bottom = '0px';
+    plusBtn.style.position = 'relative';
+    plusBtn.style.cursor = 'pointer';
+    plusBtn.style.fontSize = '50px';
     plusBtn.style.cursor = 'pointer';
     adtask.innerHTML = 'Add task';
     adtask.appendChild(plusBtn);
