@@ -1,7 +1,7 @@
 # TodoList
 This is a project about to-do's . Projects can be added and tasks(to-do's) added under each project.  The priorities chosen will display a different background color for any todo(task)  The to-do's and projects will be stored on local storage.
  
-![screenshot](./assets/images/todoshotOne.png)
+![screenshot](../assets/images/todoshotOne.png)
 
 ## Built With
 
