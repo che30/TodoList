@@ -114,7 +114,6 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     UI.delay();
   }
 });
-//  UI.renderDefault();
 document.addEventListener('DOMContentLoaded',
   UI.addProjectName(),
   UI.renderRefresh(),

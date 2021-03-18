@@ -25,4 +25,3 @@ export default class Task {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 }
-//  localStorage.clear()

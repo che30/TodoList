@@ -13,9 +13,11 @@ This is a project about to-do's . Projects can be added and tasks(to-do's) added
    To get a local copy up and running follow these simple example steps.
 # Setup
 - Clone the project locally.
+- Run `npm install` followed by  `yarn install` to download all dependencies for the To-do list project.
 - Type the command `cd TodoList`
-- run the command   `yarn install`
-- Use any browser of your choice, copy the absolute path of the  `index.html` and type in the search bar
+- -Run `npx webpack --watch` to compile all the Js code.
+- Use any browser of your choice to open the index.html file (double click on it and options appear then you chose)
+
 ## Live Demo
 
 - [Live Demo Link](https://che30.github.io/TodoList/)
@@ -23,10 +25,9 @@ This is a project about to-do's . Projects can be added and tasks(to-do's) added
 
 ## Author
 **Che Blanchard**
-
 - GitHub: [@che30](https://github.com/che30)
 - LinkedIn: [Che Blanchard](https://www.linkedin.com/in/che-nsoh-9455271b0/)
-- Twitter:[che55085128](https://twitter.com/che55085128)
+- Twitter: [@che55085128](https://twitter.com/che55085128)
 
 
 ## Acknowledgements
@@ -42,7 +43,3 @@ Contributions, issues, and feature requests are welcome!
 ## Show your support
 
 Give a ⭐️ if you like this project!
-
-## License
-
-This project is [MIT](./LICENSE.txt) licensed.
