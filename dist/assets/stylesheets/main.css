@@ -1,0 +1,142 @@
+.sidenav {
+  height: 100%;
+  width: 15%; 
+  position: fixed; 
+  z-index: 1; 
+  top: 0;
+  left: 0;
+    background-color: #111;   
+  overflow-x: hidden; 
+  padding-top: 20px;
+}
+.sidenav-content{
+  margin-top: 200px;
+}
+.dropbtn {
+  background-color: #131413;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  width: 210%;
+}
+.display-3{
+
+  position: absolute;
+  left: 90%;
+  bottom: 0%;
+  display: none; 
+
+}
+.display-4 {
+  margin-left: 50%;
+}
+
+#project-form{
+margin-top: 30px;
+}
+.projects
+{
+  cursor: pointer;
+}
+#description{
+  width: 79%;
+}
+#task-form {
+  background: gray;
+  padding: 30px 0 50px 0px;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 50px  rgba(0,0,0,0.2);
+  z-index: 100;
+  padding: 10px;
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 50px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4); 
+}
+.content{
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 35%;
+  border-radius: 25px;
+}
+.close{
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;}
+#task-form h1{
+  font-size: 1.5rem;
+}
+#task-form input{
+  width: 80%;
+ align-self: center;
+}
+table {
+  margin-left: 20%;
+  margin-top: 15px;
+}
+
+.add-task {
+  cursor: pointer;
+  margin-left: 20%;
+  margin-top: 15px;
+}
+
+.radio-group .swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+} 
+
+
+
+#section-1{
+ 
+  margin-left: 20%;
+}
+.btn-task {
+  cursor: pointer;
+}
+.todo.priority-1, .swatch.high-swatch {
+    background: #ff9b73;
+}
+.todo.priority-1, .swatch.medium-swatch {
+  background: #b692fe;
+}
+.todo.priority-1, .swatch.low-swatch {
+  background: #e4ee90;
+}
+
+
+@media (max-width: 676px){
+ #task-form {
+    margin-left: 48%;
+    z-index: 1000;
+  }
+  table {
+    margin-left: 30%;
+  }
+  .sidenav {
+    width: 30%;
+  }
+  
+}

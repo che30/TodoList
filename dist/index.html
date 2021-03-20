@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/stylesheets/main.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <title>Todo list</title>
+</head>
+<body>
+  <div class="sidenav" >
+    <form id="project-form"  class=" bg-grey">
+      <div class="form-group">
+        <input type="text" id="title" class="form-control ">
+      </div>
+      <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto ">
+    </form>
+    <div class="sidenav-content"  >
+  
+      <div  class=" text-primary text-center " id="project-header"> projects</div>
+      <div id="sideNavList">
+        <ul class="" id="sideNavListchild">
+
+        </ul>
+      </div>
+
+    </div>
+  
+  </div>
+  <div id="alert"></div>
+  <div class=" display-4  "> Your to do list</div>
+  <div id="section-1" class="d-none text-center">
+     <span >Test to clear</span>  
+    <h5 id="add-class-header">Add task</h5>
+  </div>
+  <div id="plus" class="display-3">+</div>
+  <form id="task-form" class=" bg-grey d-none">
+    <div class="content">
+    <span class="close">&times;</span>
+    <h1 class="text-center">Add a task</h1>
+    <div class="form-group">
+      <label for="titletwo" class="ml-5">Title</label>
+      <input type="text" id="titletwo" class="form-control mx-auto">
+    </div>
+   <div class="form-group">
+      <label for="description" class="ml-5">description</label>
+      <textarea  id="description" class="form-control mx-auto "></textarea>
+    </div> 
+     <div class="form-group">
+      <label for="date" class="ml-5">Date</label>
+      <input type="date" id="date" class="form-control mx-auto">
+    </div> 
+     <div class="form-group">
+      <input type="radio" id="high" name="priority" value="high">
+      <label for="high"><div class="bg-danger w-50"> </div>  High</label><br>
+      <input type="radio" id="medium" name="priority" value="medium">
+      <label for="medium">medium</label><br>
+      <input type="radio" id="low" name="priority" value="low">
+      <label for="low">low</label>
+    </div> 
+    <input id="submt" type="submit" value="Add Project" class="btn btn-dark btn-block text-white mx-auto mt-5">
+  </div>
+  </form>
+  <script type="text/javascript" src="main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
