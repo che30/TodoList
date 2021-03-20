@@ -78,8 +78,9 @@ export default class UI {
     const sectionOne = document.getElementById('section-1');
     const title = document.getElementById('add-class-header');
     title.innerHTML = argument.textContent;
+    console.log(sectionOne.firstChild);
     sectionOne.innerHTML = '';
-    sectionOne.innerHTML = 'Todo list';
+    // sectionOne.innerHTML = 'Todo list';
     title.innerHTML = argument.textContent;
     sectionOne.appendChild(title);
     getSelectedProject.tasks.forEach(task => {
