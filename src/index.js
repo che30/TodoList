@@ -111,7 +111,6 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
   const priority = document.querySelector('input[name="priority"]:checked');
   if (title.value === '' || description.value === '' || date.value === '' || priority === null) {
     UI.showAlert('Please fill in all fields', 'danger');
-    UI.delay();
   } else {
     const giveMeActiveProject = JSON.parse(localStorage.getItem('selectedId'));
 
@@ -145,5 +144,6 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     UI.delay();
   }
 });
+const lastActive = Number(UI.getSelected());
 
-document.addEventListener('DOMContentLoaded', UI.addProjectName());
+document.addEventListener('DOMContentLoaded', UI.addProjectName(), UI.synchro(lastActive));

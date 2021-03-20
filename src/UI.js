@@ -72,15 +72,14 @@ export default class UI {
   }
 
   static synchro(argument) {
-    const getSelectedId = Number(argument.id);
+    const getSelectedId = Number(argument);
     const getSelectedProject = UI.getProjectName()[getSelectedId];
     const mainTaskContain = document.createElement('div');
     const sectionOne = document.getElementById('section-1');
     const title = document.getElementById('add-class-header');
-    title.innerHTML = argument.textContent;
-    console.log(sectionOne.firstChild);
+    title.innerHTML = getSelectedProject.name;
     sectionOne.innerHTML = '';
-    title.innerHTML = argument.textContent;
+    title.innerHTML = getSelectedProject.name;
     sectionOne.appendChild(title);
     getSelectedProject.tasks.forEach(task => {
       const taskTitle = document.createElement('h5');
@@ -151,7 +150,7 @@ export default class UI {
     deefault.style.cursor = 'pointer';
     deefault.addEventListener('click', () => {
       UI.storeSelected(0);
-      UI.synchro(deefault);
+      UI.synchro(deefault.id);
     });
     return deefault;
   }
@@ -172,7 +171,7 @@ export default class UI {
         mainContain.addEventListener('click', e => {
           if ((e.target.tagName.toLowerCase() === 'li') && (Number(e.target.id) !== 0)) {
             UI.storeSelected(e.target.id);
-            e.target.setAttribute('onclick', UI.synchro(e.target));
+            e.target.setAttribute('onclick', UI.synchro(e.target.id));
           }
         });
         nextElement.children[0].setAttribute('onclick', `removeProject(${project.number})`);
