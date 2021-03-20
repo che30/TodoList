@@ -4,12 +4,15 @@ export default class UI {
   static delay() {
     setTimeout(() => {
       window.location.reload();
-    }, 3000);
+    }, 1000);
   }
 
-  //  static setSelected(){
-  //   return UI.getSelected();
-  //   }
+  static clearFields() {
+    document.querySelector('#titletwo').value = '';
+    document.getElementById('description').value = '';
+    document.querySelector('#date').value = '';
+  }
+
   static getProjectName() {
     let projects;
     if (localStorage.getItem('projects') === null) {
@@ -19,30 +22,7 @@ export default class UI {
     }
     return projects;
   }
-  //  static getTargettedElement(){
-  //    let targetted
-  //    if (localStorage.getItem('targettedId') === null) {
-  //      targetted = [];
-  //   } else {
-  //      targetted = JSON.parse(localStorage.getItem('targettedId'));
-  //   }
-  //   return  targetted;
-  //  }
-  //  static storeTargetted(element){
-  //   const targetted= UI.getTargettedElement();
-  // if ( targetted.length===0){
-  //   console.log("maybe saving here")
-  //    targetted.push(element)
-  //    console.log(targetted)
-  // }else{
-  //   console.log("maybe saving here saving")
-  //   targetted.pop();
-  //   targetted.push(element)
-  //   console.log(targetted)
-  // }
-  // localStorage.setItem('targettedId', JSON.stringify(targetted));
 
-  //  }
   static getSelected() {
     let selectedId;
     if (localStorage.getItem('selectedId') === null) {
@@ -164,14 +144,12 @@ export default class UI {
       UI.storeProjectName(defaault);
     }
     const deefaultElementOne = UI.getProjectName();
-    // const sideNave = document.getElementById('sideNavListchild');
     const deefault = document.createElement('li');
     deefault.innerHTML = `${deefaultElementOne[0].name}`;
     deefault.id = '0';
     deefault.classList.add('text-white', 'text-center', 'list-unstyled');
     deefault.style.cursor = 'pointer';
     deefault.addEventListener('click', () => {
-      // UI.storeTargetted([deefault])
       UI.storeSelected(0);
       UI.synchro(deefault);
     });
@@ -194,9 +172,6 @@ export default class UI {
         mainContain.addEventListener('click', e => {
           if ((e.target.tagName.toLowerCase() === 'li') && (Number(e.target.id) !== 0)) {
             UI.storeSelected(e.target.id);
-            //  UI.storeTargetted([e.target])
-            //  console.log(e.target)
-            //  const selectedId = UI.getSelected();
             e.target.setAttribute('onclick', UI.synchro(e.target));
           }
         });

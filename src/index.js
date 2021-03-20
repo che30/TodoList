@@ -31,7 +31,6 @@ window.removeProject = (projectNumber) => {
 };
 window.removeTask = (taskNumber) => {
   const tasks = Task.getTask();
-  // const selectedId = JSON.parse(localStorage.getItem('selectedId'));
   const projects = UI.getProjectName();
   projects.forEach(project => {
     project.tasks.forEach((task, index) => {
@@ -49,7 +48,6 @@ window.removeTask = (taskNumber) => {
       document.getElementById(taskNumber).parentNode.parentNode.parentNode.remove();
       localStorage.setItem('tasks', JSON.stringify(tasks));
       UI.showAlert('Task Removed', 'success');
-      // const selectedId = JSON.parse(localStorage.getItem('selectedId'));
       UI.delay();
     }
   });
@@ -65,7 +63,6 @@ window.editTask = (taskNumber) => {
       localStorage.setItem('tasks', JSON.stringify(tasks));
     }
   });
-  // const selectedId = JSON.parse(localStorage.getItem('selectedId'));
   const projects = UI.getProjectName();
   projects.forEach(project => {
     project.tasks.forEach((task, index) => {
@@ -129,6 +126,8 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
       Task.storeTask(task);
       projects[Number(giveMeActiveProject[0])].tasks.push(task);
       localStorage.setItem('projects', JSON.stringify(projects));
+      UI.showAlert('Task added successfuly', 'success');
+      UI.clearFields();
     } else {
       const task = new Task(title.value,
         description.value,
@@ -142,12 +141,9 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
       localStorage.setItem('projects', JSON.stringify(projects));
     }
     UI.showAlert('Task added successfuly', 'success');
+    UI.clearFields();
     UI.delay();
   }
 });
-
-//  const selectedId = UI.getSelected()
-//  UI.storeSelected(selectedId)
-//  console.log(document.getElementById(JSON.stringify(selectedId[0])))
 
 document.addEventListener('DOMContentLoaded', UI.addProjectName());
