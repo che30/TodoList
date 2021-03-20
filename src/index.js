@@ -125,7 +125,6 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
       Task.storeTask(task);
       projects[Number(giveMeActiveProject[0])].tasks.push(task);
       localStorage.setItem('projects', JSON.stringify(projects));
-      UI.showAlert('Task added successfuly', 'success');
       UI.clearFields();
     } else {
       const task = new Task(title.value,
@@ -139,7 +138,6 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
       projects[Number(giveMeActiveProject[0])].tasks.push(task);
       localStorage.setItem('projects', JSON.stringify(projects));
     }
-    UI.showAlert('Task added successfuly', 'success');
     UI.clearFields();
     UI.delay();
   }
