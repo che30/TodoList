@@ -80,7 +80,6 @@ export default class UI {
     title.innerHTML = argument.textContent;
     console.log(sectionOne.firstChild);
     sectionOne.innerHTML = '';
-    // sectionOne.innerHTML = 'Todo list';
     title.innerHTML = argument.textContent;
     sectionOne.appendChild(title);
     getSelectedProject.tasks.forEach(task => {
