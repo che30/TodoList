@@ -21,7 +21,7 @@
   width: 210%;
 }
 .display-3{
-  /* margin-left: 30%; */
+
   position: absolute;
   left: 90%;
   bottom: 0%;
@@ -29,7 +29,7 @@
 
 }
 .display-4 {
-
+  margin-left: 50%;
 }
 
 #project-form{
