@@ -31,6 +31,7 @@
 .display-x {
   margin-left: 50%;
   font-size: 2.5rem;
+  color: #f542cb;
 }
 
 #project-form{
@@ -42,6 +43,9 @@ margin-top: 30px;
 }
 #description{
   width: 79%;
+}
+.radiobtns{
+  margin-right: 23%;
 }
 #task-form {
   background: gray;
@@ -110,6 +114,12 @@ table {
 .btn-task {
   cursor: pointer;
  }
+ .high-label{
+
+ }
+.medium-label{
+  /* margin-left: 5%; */
+}
 
 @media (max-width: 676px){
   .sidenav {
@@ -125,4 +135,14 @@ table {
   
     width: 60%;
 
+}
+.radiobtns{
+    width: 100%; 
+}
+.high-input,.low-input{
+  margin-right: 13%;
+}
+.low-input{
+  margin-right: 19%;
+}
 }

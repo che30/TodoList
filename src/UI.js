@@ -96,6 +96,7 @@ export default class UI {
 
       const taskPriority = document.createElement('p');
       taskPriority.innerHTML = `priority: ${task.priority}`;
+      taskPriority.style.color = `${UI.renderColours(task.priority)}`;
       const containAction = document.createElement('div');
       const edit = document.createElement('span');
       edit.innerHTML = '<i class="fas fa-edit"></i>';
@@ -109,7 +110,7 @@ export default class UI {
       taskDate.classList.add('card-text');
       const taskDescription = document.createElement('p');
       taskDescription.innerHTML = `description: ${task.description}`;
-      cardContain.style.background = `${UI.renderColours(task.priority)}`;
+
       title.innerHTML = task.createBy;
       title.classList.add('text-center');
       containAction.appendChild(edit);
@@ -146,7 +147,7 @@ export default class UI {
     const deefault = document.createElement('li');
     deefault.innerHTML = `${deefaultElementOne[0].name}`;
     deefault.id = '0';
-    deefault.classList.add('text-white', 'text-center', 'list-unstyled');
+    deefault.classList.add('text-white', 'mr-5', 'text-center', 'list-unstyled');
     deefault.style.cursor = 'pointer';
     deefault.addEventListener('click', () => {
       UI.storeSelected(0);
@@ -163,8 +164,8 @@ export default class UI {
     storedProjects.forEach(project => {
       if (project.number !== 0) {
         const nextElement = document.createElement('li');
-        nextElement.innerHTML = `${project.name}<i class="fas ml-5 fa-trash-alt" ></i>`;
-        nextElement.classList.add('text-white', 'text-center', 'mt-4', 'list-unstyled');
+        nextElement.innerHTML = `${project.name}<i class="fas ml-3 fa-trash-alt" ></i>`;
+        nextElement.classList.add('text-white', 'mr-5', 'text-center', 'mt-4', 'list-unstyled');
         nextElement.id = project.number;
         nextElement.style.cursor = 'pointer';
         mainContain.appendChild(nextElement);
