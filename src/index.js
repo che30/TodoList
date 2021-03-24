@@ -115,7 +115,9 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
     const giveMeActiveProject = JSON.parse(localStorage.getItem('selectedId'));
 
     const projects = UI.getProjectName();
+    console.log(Number(giveMeActiveProject[0]))
     if (Number(giveMeActiveProject[0]) === 0) {
+   
       const task = new Task(title.value,
         description.value,
         date.value,

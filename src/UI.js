@@ -188,3 +188,5 @@ export default class UI {
     container.appendChild(div);
   }
 }
+module.exports = UI
+
