@@ -18,6 +18,11 @@ This is a project about to-do's . Projects can be added and tasks(to-do's) added
 - -Run `npx webpack --watch` to compile all the Js code.
 - Use any browser of your choice to open the index.html file (double click on it and options appear then you chose)
 
+# TESTS
+To run tests follow the steps below
+- Run `npm install --save-dev jest` on your terminal.
+- Then run `npm run test` to run the tests for the to-do lists project
+
 ## Live Demo
 
 - [Live Demo Link](https://che30.github.io/TodoList/)
