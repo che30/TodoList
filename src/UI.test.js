@@ -1,4 +1,5 @@
 import UI from './UI.js'
+import Project from './Project.js'
 test("creates instance of class UI",()=>{
   const ui= new UI()
   expect(()=>ui).not.toThrow()
@@ -36,9 +37,35 @@ test("creates instance of an array class",()=>{
   expect( value).toBe('text-grey')
  
  })
- test("type of count project should be integer",()=>{
+ test("type of count project should be Array",()=>{
   const value =UI.countProject()
  expect(value instanceof Number).toBe(false)
 
 })
+test("catch error if the synchro function not passed argument",()=>{ 
+
+  expect(()=>UI.synchro()).toThrow("Cannot read property 'name' of undefined")
+
+
+})
+test("verify default is not returning sring",()=>{ 
+  const defaault = new Project('default', 0);
+  UI.storeProjectName(defaault);
+
+  expect(UI.renderDefault() instanceof String).toBe(false)
+
+
+})
+test("verify that a project was stored successfully",()=>{ 
+  let defaault = new Project('default', 0);
+  UI.storeProjectName(defaault);
+  defaault=UI.getProjectName()
+
+  expect( defaault.length).toEqual(2)
+
+
+})
+
+
+
 

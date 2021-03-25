@@ -147,3 +147,4 @@ document.getElementById('task-form').addEventListener('submit', (e) => {
 const lastActive = Number(UI.getSelected());
 
 document.addEventListener('DOMContentLoaded', UI.addProjectName(), UI.synchro(lastActive));
+module.exports =removeProject
