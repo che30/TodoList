@@ -41,7 +41,7 @@ export default class UI {
     } if (priority === 'low') {
       return '#C70039';
     }
-    return false;
+    return "text-grey";
   }
 
   static storeSelected(element) {

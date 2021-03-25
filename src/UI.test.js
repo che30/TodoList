@@ -22,3 +22,23 @@ test("creates instance of an array class",()=>{
   expect(()=>UI.getProjectName(a)).toThrow()
  
  })
+ test("render color throws an error is not passed string",()=>{
+   const priority = Number(1)
+ try{
+   UI.renderColours(priority)
+ }catch(e){
+   expect(e.message).toBe(" invalid argument")
+ }
+ 
+ })
+ test("renderColors should return string",()=>{
+   const value =UI.renderColours('High')
+  expect( value).toBe('text-grey')
+ 
+ })
+ test("type of count project should be integer",()=>{
+  const value =UI.countProject()
+ expect(value instanceof Number).toBe(false)
+
+})
+
