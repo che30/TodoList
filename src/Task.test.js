@@ -16,7 +16,7 @@ test("creates instance of an array class",()=>{
  expect(Task.getTask()).toBeInstanceOf(Array)
 
 })
-test("throws an error if the storeTask method is called withou argument",()=>{
-  expect(Task.storeTask()).toThrow()
+test("throws an error if the storeTask method is called without argument",()=>{
+  expect(()=>{Task.storeTask(b)}).toThrow()
  
  })
