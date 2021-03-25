@@ -41,7 +41,7 @@ export default class UI {
     } if (priority === 'low') {
       return '#C70039';
     }
-    return "text-grey";
+    return 'text-grey';
   }
 
   static storeSelected(element) {
@@ -188,5 +188,4 @@ export default class UI {
     container.appendChild(div);
   }
 }
-module.exports = UI
-
+module.exports = UI;
