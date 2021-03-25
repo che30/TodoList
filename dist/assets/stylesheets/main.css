@@ -28,8 +28,10 @@
   display: none; 
 
 }
-.display-4 {
+.display-x {
   margin-left: 50%;
+  font-size: 2.5rem;
+  color: #f542cb;
 }
 
 #project-form{
@@ -41,6 +43,9 @@ margin-top: 30px;
 }
 #description{
   width: 79%;
+}
+.radiobtns{
+  margin-right: 23%;
 }
 #task-form {
   background: gray;
@@ -100,13 +105,6 @@ table {
   margin-top: 15px;
 }
 
-.radio-group .swatch {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin-right: 8px;
-} 
-
 
 
 #section-1{
@@ -115,28 +113,36 @@ table {
 }
 .btn-task {
   cursor: pointer;
-}
-.todo.priority-1, .swatch.high-swatch {
-    background: #ff9b73;
-}
-.todo.priority-1, .swatch.medium-swatch {
-  background: #b692fe;
-}
-.todo.priority-1, .swatch.low-swatch {
-  background: #e4ee90;
-}
+ }
+ .high-label{
 
+ }
+.medium-label{
+  /* margin-left: 5%; */
+}
 
 @media (max-width: 676px){
- #task-form {
-    margin-left: 48%;
-    z-index: 1000;
-  }
-  table {
-    margin-left: 30%;
-  }
   .sidenav {
     width: 30%;
   }
+  .display-x {
+    font-size: 1.5rem;
+  }
+  #task-form {
+    margin-left: 18%;
+  }
+  .content{
   
+    width: 60%;
+
+}
+.radiobtns{
+    width: 100%; 
+}
+.high-input,.low-input{
+  margin-right: 13%;
+}
+.low-input{
+  margin-right: 19%;
+}
 }

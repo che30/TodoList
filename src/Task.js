@@ -25,3 +25,4 @@ export default class Task {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 }
+module.exports = Task;
