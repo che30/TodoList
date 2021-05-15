@@ -20,7 +20,7 @@ This is a project about to-do's . Projects can be added and tasks(to-do's) added
 
 ## Live Demo
 
-- [Live Demo Link](https://che30.github.io/TodoList/)
+- [Live Demo Link](https://raw.githack.com/che30/TodoList/feature/dist/index.html)
  
 
 ## Author
