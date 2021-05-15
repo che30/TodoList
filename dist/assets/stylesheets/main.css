@@ -1,16 +1,19 @@
 .sidenav {
   height: 100%;
-  width: 15%; 
+  width: 18%; 
   position: fixed; 
   z-index: 1; 
   top: 0;
   left: 0;
-    background-color: #111;   
+  background-color: rgb(11, 135, 151); 
   overflow-x: hidden; 
   padding-top: 20px;
 }
 .sidenav-content{
   margin-top: 200px;
+}
+.todo-t{
+  margin-left: 50%;
 }
 .dropbtn {
   background-color: #131413;
@@ -20,22 +23,28 @@
   border: none;
   width: 210%;
 }
-.display-3{
+.display-4{
 
   position: absolute;
   left: 90%;
   bottom: 0%;
-  display: none; 
+  display: none;
+  background-color: #1f8307; 
+  border-radius: 40px;
+  padding: 0 20px 0 20px;
 
 }
 .display-x {
-  margin-left: 50%;
   font-size: 2.5rem;
-  color: #f542cb;
+  color: #1f8307;
+  background-color: rgb(155, 151, 151);
+}
+#project-header{
+color: #250210;
 }
 
 #project-form{
-margin-top: 30px;
+margin-top: 50px;
 }
 .projects
 {
@@ -67,6 +76,10 @@ margin-top: 30px;
   overflow: auto; 
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4); 
+}
+#submt{
+  background-color: rgb(43, 12, 94);
+  width: 100%;
 }
 .content{
   background-color: #fefefe;
@@ -123,7 +136,7 @@ table {
 
 @media (max-width: 676px){
   .sidenav {
-    width: 30%;
+    width: 35%;
   }
   .display-x {
     font-size: 1.5rem;
