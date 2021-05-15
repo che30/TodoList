@@ -16,7 +16,7 @@ This is a project about to-do's . Projects can be added and tasks(to-do's) added
 - Run `npm install` followed by  `yarn install` to download all dependencies for the To-do list project.
 - Type the command `cd TodoList`
 - -Run `npx webpack --watch` to compile all the Js code.
-- Use any browser of your choice to open the index.html file (double click on it and options appear then you chose)
+- Use any browser of your choice to open the index.html file (double click on it and options appear then you chose).
 
 ## Live Demo
 
