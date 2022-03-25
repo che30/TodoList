@@ -1,4 +1,77 @@
+h1 {
+font-size: 1rem;
+}
 .sidenav {
+  width: 300px;
+  position: fixed;
+  height: 100vh;
+  top: 65px;
+  left: 0;
+  background-color: rgba(250, 248, 248, 0.89);
+}
+.project__header{
+  margin-top: 180px;
+  text-align: center;
+}
+.sidenav h2 {
+  font-size: 1rem;
+  font-weight: bolder;
+}
+.dp__contain{
+  width: 80px;
+}
+.myBtn {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+#down-arrow {
+  cursor: pointer;
+}
+#title {
+  background-color: rgb(241, 235, 235);
+}
+.dp__contain {
+  width: 100%;
+}
+#task-section{
+  font-size: 2rem;
+}
+#plusBtn{
+  font-size: 1.5rem;
+  position: absolute;
+  width: 35px;
+  left: 630px;
+  background-color:#dc3545;
+  border-radius: 50px;
+  padding: 0 10px 0 10px;
+  color: white;
+  cursor: pointer;
+}
+#description{
+  height: 50px;
+}
+.task__form{
+  width: 60%;
+  margin-left: 25%;
+  background: rgb(236, 234, 234);
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+}
+#submitTwo{
+  cursor: pointer;
+}
+#msg{
+background-color: #9ed9f0;
+position: absolute;
+bottom: 10%;
+left: 25%;
+width: 50%;
+}
+/* .active__project{
+  margin-left: 30%;
+} */
+/* .sidenav {
   height: 100%;
   width: 18%; 
   position: fixed; 
@@ -130,9 +203,7 @@ table {
  .high-label{
 
  }
-.medium-label{
-  /* margin-left: 5%; */
-}
+
 
 @media (max-width: 676px){
   .sidenav {
@@ -158,4 +229,4 @@ table {
 .low-input{
   margin-right: 19%;
 }
-}
+} */

@@ -1,27 +1,20 @@
 export default class Task {
-  constructor(title, description, date, priority, now, createBy) {
-    this.title = title;
+  constructor(description, date, priority, createBy) {
     this.description = description;
     this.date = date;
     this.priority = priority;
-    this.now = now;
+    // this.now = now;
     this.createBy = createBy;
   }
 
-  static getTask() {
-    let tasks;
-    if (localStorage.getItem('tasks') === null) {
-      tasks = [];
-    } else {
-      tasks = JSON.parse(localStorage.getItem('tasks'));
-    }
+  // static getTask() {
+  //   let tasks = JSON.parse(localStorage.getItem('tasks')) || []
+  //   return tasks;
+  // }
 
-    return tasks;
-  }
-
-  static storeTask(task) {
-    const tasks = Task.getTask();
-    tasks.push(task);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
+  // static storeTask(task) {
+  //   const tasks = Task.getTask();
+  //   tasks.push(task);
+  //   localStorage.setItem('tasks', JSON.stringify(tasks));
+  // }
 }
