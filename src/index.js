@@ -69,24 +69,7 @@ submitOne.addEventListener('click', () => {
   }
 });
 const retrieveLocalStorage = () => JSON.parse(localStorage.getItem('projects'));
-const delProject = (id) => {
-  const projects = retrieveLocalStorage();
-  projects.map((elt, index) => {
-    if (elt.number === Number(id)) {
-      projects.splice(index, 1);
-      localStorage.setItem('projects', JSON.stringify(projects));
-      document.getElementById(id).parentNode.remove();
-      // const mainc = document.querySelector('.main__project__container').childNodes;
-      // mainc.forEach((elt, index) => {
-      //   if (index > 0) {
-      //     elt.innerHTML = '';
-      //   }
-      // });
-      // rerenderProjects();
-    }
-    return true;
-  });
-};
+
 const rerenderProjects = () => {
   const store = retrieveLocalStorage();
   if (store && store.length !== 0) {
@@ -115,37 +98,22 @@ const rerenderProjects = () => {
     });
   }
 };
-
-const getActiveTask = () => {
-  const activeTask = JSON.parse(localStorage.getItem('active'));
-  return activeTask;
-};
-const renderTask = () => {
+const delProject = (id) => {
   const projects = retrieveLocalStorage();
-  let activeProject = getActiveTask();
-  if (activeProject === null) {
-    activeProject = 0;
-  }
-  const taskContainer = document.createElement('div');
-  projects.forEach(project => {
-    if (project.tasks.length !== 0 && project.number === Number(activeProject)) {
-      project.tasks.forEach(task => {
-        const flexContain = document.createElement('div');
-        flexContain.classList.add('d-flex', 'align-items-center', 'bg-info', 'w-50', 'mx-auto');
-        // flexContain.style.paddingLeft = '200px'
-        const testTask = document.createElement('div');
-        testTask.innerHTML = task.description;
-        testTask.classList.add('text-center');
-        const radio = document.createElement('input');
-        radio.setAttribute('type', 'radio');
-        flexContain.appendChild(radio);
-        flexContain.appendChild(testTask);
-        taskContainer.appendChild(flexContain);
+  projects.map((elt, index) => {
+    if (elt.number === Number(id)) {
+      projects.splice(index, 1);
+      localStorage.setItem('projects', JSON.stringify(projects));
+      document.getElementById(id).parentNode.remove();
+      const mainc = document.querySelector('.main__project__container').childNodes;
+      mainc.forEach((elt, index) => {
+        if (index > 0) {
+          elt.innerHTML = '';
+        }
       });
-      taskSection.appendChild(taskContainer);
-    // const testTask = document.createElement('div');
-    // testTask.innerHTML = 'test';
+      rerenderProjects();
     }
+    return true;
   });
 };
 const progressSec = () => {
@@ -207,6 +175,10 @@ projectsContainer.addEventListener('click', (e) => {
   taskbutton();
   body.appendChild(taskProgressSection);
 });
+const getActiveTask = () => {
+  const activeTask = JSON.parse(localStorage.getItem('active'));
+  return activeTask;
+};
 
 plusBtn.addEventListener('click', () => {
   const activeId = getActiveTask();
@@ -261,7 +233,6 @@ submitTwo.addEventListener('click', () => {
       tasks.push(newTask);
       allprojects[0].tasks = tasks;
       localStorage.setItem('projects', JSON.stringify(allprojects));
-      console.log('successful');
     } else {
       tasks = allprojects[activeProject].tasks;
       tasks.push(newTask);
@@ -278,22 +249,58 @@ submitTwo.addEventListener('click', () => {
     renderTask();
   }
 });
-
+const renderTask = () => {
+  const projects = retrieveLocalStorage();
+  let activeProject = getActiveTask();
+  if (activeProject === null) {
+    activeProject = 0;
+  }
+  const taskContainer = document.createElement('div');
+  projects.forEach(project => {
+    if (project.tasks.length !== 0 && project.number === Number(activeProject)) {
+      project.tasks.forEach(task => {
+        const flexContain = document.createElement('div');
+        flexContain.classList.add('d-flex', 'align-items-center', 'bg-info', 'w-50', 'mx-auto');
+        // flexContain.style.paddingLeft = '200px'
+        const testTask = document.createElement('div');
+        testTask.innerHTML = task.description;
+        testTask.style.cursor = 'pointer';
+        testTask.innerHTML = task.description;
+        testTask.style.fontSize = '2rem';
+        testTask.classList.add('text-center');
+        const radio = document.createElement('input');
+        radio.setAttribute('type', 'radio');
+        flexContain.appendChild(radio);
+        flexContain.appendChild(testTask);
+        taskContainer.appendChild(flexContain);
+      });
+      taskSection.appendChild(taskContainer);
+    // const testTask = document.createElement('div');
+    // testTask.innerHTML = 'test';
+    }
+  });
+};
 taskSection.addEventListener('click', (e) => {
+  let trashContainer = [];
   const allcheckedinputs = document.querySelectorAll('input:checked');
+  allcheckedinputs.forEach(elt =>{
+    trashContainer.push(elt.nextSibling.innerHTML);
+  })
+  // console.log(trashContainer);
   const retrievedTask = getActiveTask() || 0;
   let storedProjects = retrieveLocalStorage();
+  let unmodifiedProjects = storedProjects;
+  // let modified = storedProjects;
 
   storedProjects.forEach(project => {
     if ((project.number === Number(retrievedTask))) {
-      storedProjects = project;
+       storedProjects = project;
     }
   });
   const countActiveProjects = storedProjects.tasks.length - allcheckedinputs.length;
   const message = document.createElement('div');
   message.classList.add('text-center');
   message.setAttribute('id', 'msg');
-  console.log(taskProgressSection);
   taskProgressSection.childNodes.forEach((node, index) => {
     if (index > 0) {
       node.innerHTML = '';
@@ -308,8 +315,22 @@ taskSection.addEventListener('click', (e) => {
   //   checkedCount = 0
   // }else{
     e.target.nextSibling.style.textDecoration = 'line-through';
+    let tempTasks =  storedProjects.tasks;
     // checkedCount += 1;
-    message.innerHTML = `${countActiveProjects} tasks remaining`;
+    tempTasks.map(elt =>{
+      trashContainer.map(elt2 =>{
+        if(elt.description ===  elt2){
+          const removeIndex = tempTasks.findIndex( item => item.description === elt2 );
+          tempTasks.splice(removeIndex, 1)
+          console.log(tempTasks);
+        }
+      })
+    })
+    storedProjects = tempTasks;
+    unmodifiedProjects[retrievedTask].tasks = storedProjects;
+    console.log(unmodifiedProjects);
+    localStorage.setItem('projects', JSON.stringify(unmodifiedProjects));
+    message.innerHTML = `${countActiveProjects} tasks remaining `;
   // }
   }
 });
