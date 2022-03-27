@@ -69,6 +69,24 @@ submitOne.addEventListener('click', () => {
   }
 });
 const retrieveLocalStorage = () => JSON.parse(localStorage.getItem('projects'));
+const delProject = (id) => {
+  const projects = retrieveLocalStorage();
+  projects.map((elt, index) => {
+    if (elt.number === Number(id)) {
+      projects.splice(index, 1);
+      localStorage.setItem('projects', JSON.stringify(projects));
+      document.getElementById(id).parentNode.remove();
+      // const mainc = document.querySelector('.main__project__container').childNodes;
+      // mainc.forEach((elt, index) => {
+      //   if (index > 0) {
+      //     elt.innerHTML = '';
+      //   }
+      // });
+      // rerenderProjects();
+    }
+    return true;
+  });
+};
 
 const rerenderProjects = () => {
   const store = retrieveLocalStorage();
@@ -98,24 +116,7 @@ const rerenderProjects = () => {
     });
   }
 };
-const delProject = (id) => {
-  const projects = retrieveLocalStorage();
-  projects.map((elt, index) => {
-    if (elt.number === Number(id)) {
-      projects.splice(index, 1);
-      localStorage.setItem('projects', JSON.stringify(projects));
-      document.getElementById(id).parentNode.remove();
-      const mainc = document.querySelector('.main__project__container').childNodes;
-      mainc.forEach((elt, index) => {
-        if (index > 0) {
-          elt.innerHTML = '';
-        }
-      });
-      rerenderProjects();
-    }
-    return true;
-  });
-};
+
 const progressSec = () => {
   const taskProgress = document.createElement('div');
   taskProgress.classList.add('text-center');
@@ -137,6 +138,38 @@ const taskbutton = () => {
   plusBtn.setAttribute('id', 'plusBtn');
   plusBtn.innerHTML = '+';
   body.appendChild(plusBtnSection);
+};
+const getActiveTask = () => {
+  const activeTask = JSON.parse(localStorage.getItem('active'));
+  return activeTask;
+};
+const renderTask = () => {
+  const projects = retrieveLocalStorage();
+  let activeProject = getActiveTask();
+  if (activeProject === null) {
+    activeProject = 0;
+  }
+  const taskContainer = document.createElement('div');
+  projects.forEach(project => {
+    if (project.tasks.length !== 0 && project.number === Number(activeProject)) {
+      project.tasks.forEach(task => {
+        const flexContain = document.createElement('div');
+        flexContain.classList.add('d-flex', 'align-items-center', 'bg-info', 'w-50', 'mx-auto');
+        const testTask = document.createElement('div');
+        testTask.innerHTML = task.description;
+        testTask.style.cursor = 'pointer';
+        testTask.innerHTML = task.description;
+        testTask.style.fontSize = '2rem';
+        testTask.classList.add('text-center');
+        const radio = document.createElement('input');
+        radio.setAttribute('type', 'radio');
+        flexContain.appendChild(radio);
+        flexContain.appendChild(testTask);
+        taskContainer.appendChild(flexContain);
+      });
+      taskSection.appendChild(taskContainer);
+    }
+  });
 };
 const saveActiveProject = (active) => {
   localStorage.setItem('active', JSON.stringify(active));
@@ -162,9 +195,6 @@ projectsContainer.addEventListener('click', (e) => {
     taskProgressSection.innerHTML = '';
     const activeProject = document.createElement('div');
     progressSec();
-    // taskProgressSection.style.position = 'abolute';
-    // taskProgressSection.style.bottom = '5px';
-    // taskProgressSection.style.left = '50%';
     activeProject.innerHTML = e.target.innerHTML;
     activeProject.setAttribute('id', `${taskId}`);
     activeProject.classList.add('text-center');
@@ -175,14 +205,9 @@ projectsContainer.addEventListener('click', (e) => {
   taskbutton();
   body.appendChild(taskProgressSection);
 });
-const getActiveTask = () => {
-  const activeTask = JSON.parse(localStorage.getItem('active'));
-  return activeTask;
-};
 
 plusBtn.addEventListener('click', () => {
   const activeId = getActiveTask();
-  // const activeIDElt = document.getElementById(`${activeId}-t`);
   body.append(taskForm);
   body.appendChild(plusBtn);
   if (activeId !== null) {
@@ -193,7 +218,6 @@ plusBtn.addEventListener('click', () => {
   if (activeProjectId === 'd') {
     activeProjectId = 0;
   }
-  // const activeElement = document.getElementById(`${activeProjectId}-t`);
 });
 cancelbtn.addEventListener('click', () => {
   taskForm.classList.add('d-none');
@@ -207,6 +231,7 @@ const storeDefaultProject = () => {
     projectZero.storeProject();
   }
 };
+
 submitTwo.addEventListener('click', () => {
   taskSection.childNodes.forEach((elt, index) => {
     if (index > 0) {
@@ -228,7 +253,6 @@ submitTwo.addEventListener('click', () => {
       taskDate.value,
       taskPriority, activeProject);
     if (activeProject === 'd' || activeProject === 0) {
-      // console.log(activeProject[0]);
       tasks = allprojects[0].tasks;
       tasks.push(newTask);
       allprojects[0].tasks = tasks;
@@ -238,100 +262,76 @@ submitTwo.addEventListener('click', () => {
       tasks.push(newTask);
       allprojects[activeProject].tasks = tasks;
       localStorage.setItem('projects', JSON.stringify(allprojects));
-      // const tasks = allprojects[activeProject].tasks;
-      // allprojects[activeProject].tasks = tasks.push(newTask);
-
-      // console.log(allprojects);
     }
-    // localStorage.setItem('projects',JSON.stringify(tasks));
     taskDiscription.value = '';
     taskDate.value = '';
     renderTask();
   }
 });
-const renderTask = () => {
-  const projects = retrieveLocalStorage();
-  let activeProject = getActiveTask();
-  if (activeProject === null) {
-    activeProject = 0;
-  }
-  const taskContainer = document.createElement('div');
-  projects.forEach(project => {
-    if (project.tasks.length !== 0 && project.number === Number(activeProject)) {
-      project.tasks.forEach(task => {
-        const flexContain = document.createElement('div');
-        flexContain.classList.add('d-flex', 'align-items-center', 'bg-info', 'w-50', 'mx-auto');
-        // flexContain.style.paddingLeft = '200px'
-        const testTask = document.createElement('div');
-        testTask.innerHTML = task.description;
-        testTask.style.cursor = 'pointer';
-        testTask.innerHTML = task.description;
-        testTask.style.fontSize = '2rem';
-        testTask.classList.add('text-center');
-        const radio = document.createElement('input');
-        radio.setAttribute('type', 'radio');
-        flexContain.appendChild(radio);
-        flexContain.appendChild(testTask);
-        taskContainer.appendChild(flexContain);
-      });
-      taskSection.appendChild(taskContainer);
-    // const testTask = document.createElement('div');
-    // testTask.innerHTML = 'test';
-    }
-  });
-};
-taskSection.addEventListener('click', (e) => {
-  let trashContainer = [];
-  const allcheckedinputs = document.querySelectorAll('input:checked');
-  allcheckedinputs.forEach(elt =>{
-    trashContainer.push(elt.nextSibling.innerHTML);
-  })
-  // console.log(trashContainer);
-  const retrievedTask = getActiveTask() || 0;
-  let storedProjects = retrieveLocalStorage();
-  let unmodifiedProjects = storedProjects;
-  // let modified = storedProjects;
 
-  storedProjects.forEach(project => {
-    if ((project.number === Number(retrievedTask))) {
-       storedProjects = project;
+taskSection.addEventListener('click', (e) => {
+  if (e.target.tagName === 'INPUT') {
+    const trashContainer = [];
+    const allcheckedinputs = document.querySelectorAll('input:checked');
+    allcheckedinputs.forEach(elt => {
+      trashContainer.push(elt.nextSibling.innerHTML);
+    });
+    // console.log(trashContainer);
+    const retrievedTask = getActiveTask() || 0;
+    let storedProjects = retrieveLocalStorage();
+    const unmodifiedProjects = storedProjects;
+    // let modified = storedProjects;
+
+    storedProjects.forEach(project => {
+      if ((project.number === Number(retrievedTask))) {
+        storedProjects = project;
+      }
+    });
+    const countActiveProjects = storedProjects.tasks.length - allcheckedinputs.length;
+    const message = document.createElement('div');
+    const trash = document.createElement('span');
+    trash.innerHTML = ' <i class="fas ml-1 fa-trash-alt"></i>';
+    trash.classList.add('d-inline-flex');
+    trash.style.cursor = 'pointer';
+    message.classList.add('text-center');
+    message.setAttribute('id', 'msg');
+    taskProgressSection.childNodes.forEach((node, index) => {
+      if (index > 0) {
+        node.innerHTML = '';
+      }
+    });
+    const progrestask = document.getElementById('taskProgrossSection');
+    progrestask.innerHTML = '';
+    progrestask.appendChild(message);
+    progrestask.appendChild(trash);
+    if (e.target.type === 'radio') {
+      e.target.nextSibling.style.textDecoration = 'line-through';
+      const tempTasks = storedProjects.tasks;
+      tempTasks.map(elt => {
+        trashContainer.map(elt2 => {
+          if (elt.description === elt2) {
+            const removeIndex = tempTasks.findIndex(item => item.description === elt2);
+            tempTasks.splice(removeIndex, 1);
+          }
+          return true;
+        });
+        return true;
+      });
+      storedProjects = tempTasks;
+      unmodifiedProjects[retrievedTask].tasks = storedProjects;
+      message.innerHTML = `${countActiveProjects} tasks remaining `;
+      trash.addEventListener('click', () => {
+        localStorage.setItem('projects', JSON.stringify(unmodifiedProjects));
+        taskSection.childNodes.forEach((node, index) => {
+          if (index > 1) {
+            node.innerHTML = '';
+          }
+        });
+        renderTask();
+      });
+
+      // }
     }
-  });
-  const countActiveProjects = storedProjects.tasks.length - allcheckedinputs.length;
-  const message = document.createElement('div');
-  message.classList.add('text-center');
-  message.setAttribute('id', 'msg');
-  taskProgressSection.childNodes.forEach((node, index) => {
-    if (index > 0) {
-      node.innerHTML = '';
-    }
-  });
-  taskProgressSection.appendChild(message);
-  if (e.target.type === 'radio') {
-  // if(checkedCount === 1){
-  //   e.target.checked = false;
-  //   e.target.nextSibling.style.textDecoration = 'none';
-  //   message.innerHTML = `${countActiveProjects-1} tasks remaining`
-  //   checkedCount = 0
-  // }else{
-    e.target.nextSibling.style.textDecoration = 'line-through';
-    let tempTasks =  storedProjects.tasks;
-    // checkedCount += 1;
-    tempTasks.map(elt =>{
-      trashContainer.map(elt2 =>{
-        if(elt.description ===  elt2){
-          const removeIndex = tempTasks.findIndex( item => item.description === elt2 );
-          tempTasks.splice(removeIndex, 1)
-          console.log(tempTasks);
-        }
-      })
-    })
-    storedProjects = tempTasks;
-    unmodifiedProjects[retrievedTask].tasks = storedProjects;
-    console.log(unmodifiedProjects);
-    localStorage.setItem('projects', JSON.stringify(unmodifiedProjects));
-    message.innerHTML = `${countActiveProjects} tasks remaining `;
-  // }
   }
 });
 document.addEventListener('DOMContentLoaded',

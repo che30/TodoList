@@ -61,7 +61,7 @@ font-size: 1rem;
 #submitTwo{
   cursor: pointer;
 }
-#msg{
+#taskProgrossSection{
 background-color: #9ed9f0;
 position: absolute;
 bottom: 10%;
