@@ -205,6 +205,18 @@ const renderTaskAfterEdit = () => {
     }
   });
 };
+const priorityColor = (priority)=>{
+  switch(priority){
+    case "HIGH": 
+    return "HIGH"
+    case "MEDIUM":
+    return "MEDIUM"
+    case "LOW":
+    return "LOW"
+    default:
+    return "LOW"
+  }
+}
 const editTak = (element, date) => {
   let taskPriority = document.getElementById('Taskpriorities');
   taskPriority = taskPriority.options[taskPriority.selectedIndex].value;
@@ -258,7 +270,9 @@ const renderTask = () => {
       project.tasks.forEach(task => {
         const flexContain = document.createElement('div');
         flexContain.classList.add('d-flex', 'align-items-center', 'w-50',
-          'mx-auto', 'justify-content-between');
+          'mx-auto', 'justify-content-between',`${priorityColor(task.priority)}`,
+          'my-2','px-3');
+        flexContain.style.borderRadius = "10px";
         const holdRadiobtnandDes = document.createElement('div');
         holdRadiobtnandDes.classList.add('d-flex', 'align-items-center');
         const taskDate = document.createElement('div');
@@ -270,7 +284,6 @@ const renderTask = () => {
         testTask.innerHTML = task.description;
         testTask.style.cursor = 'pointer';
         testTask.innerHTML = task.description;
-        testTask.style.fontSize = '2rem';
         testTask.classList.add('text-center');
         const radio = document.createElement('input');
         radio.setAttribute('type', 'radio');
