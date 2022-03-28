@@ -51,7 +51,7 @@ font-size: 1rem;
 #description{
   height: 50px;
 }
-.task__form{
+.task__form, .task__form_edit{
   width: 60%;
   margin-left: 25%;
   background: rgb(236, 234, 234);
