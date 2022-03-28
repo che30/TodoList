@@ -51,19 +51,54 @@ submitOne.addEventListener('click', () => {
       newProject.storeProject();
       // Appending Newly created Project
       const mainProjectChild = document.createElement('div');
-      mainProjectChild.innerHTML = `<span id="1-p">${title.value}</span> `
-     + '<span> <i class="fas ml-1 fa-trash-alt" ></i></span>';
-      mainProjectChild.style.cursor = 'pointer';
+    //   mainProjectChild.innerHTML = `<span id="1-p">${title.value}</span> `
+    //  + '<span> <i class="fas ml-1 fa-trash-alt" ></i></span>';
+    //   mainProjectChild.style.cursor = 'pointer';
+      const contain = document.createElement('div');
+      contain.classList.add('d-flex', 'justify-content-center');
+      const projecName = document.createElement('div');
+      projecName.innerHTML = title.value;
+      projecName.style.cursor = 'pointer';
+      projecName.setAttribute('id', `1-p`);
+      const delIcon = document.createElement('div');
+      delIcon.innerHTML = `<span> <i class="fas ml-1 fa-trash-alt" id=1 ></i></span>`;
+      delIcon.style.cursor = 'pointer';
+      contain.appendChild(projecName);
+      contain.appendChild(delIcon);
+      mainProjectChild.appendChild(contain);
+      delIcon.setAttribute('id', 1);
+      // delIcon.setAttribute('click',`${delProject(delIcon.id)}`)
+      delIcon.addEventListener('click', () => {
+        delProject(delIcon.id);
+      });
       mainContainer.appendChild(mainProjectChild);
     } else {
       const num = projects[projects.length - 1].number + 1;
       const newProject = new Project(title.value, num);
       newProject.storeProject();
+
       const mainProjectChild = document.createElement('div');
-      mainProjectChild.innerHTML = `<span id=${num}-p>${title.value}</span> `
-      + '<span> <i class="fas ml-1 fa-trash-alt" ></i></span>';
-      mainProjectChild.style.cursor = 'pointer';
-      mainProjectChild.setAttribute('id', `${num}-p`);
+        const contain = document.createElement('div');
+        contain.classList.add('d-flex', 'justify-content-center');
+        const projecName = document.createElement('div');
+        projecName.innerHTML = title.value;
+        projecName.style.cursor = 'pointer';
+        projecName.setAttribute('id', `${num}-p`);
+        const delIcon = document.createElement('div');
+        delIcon.innerHTML = `<span> <i class="fas ml-1 fa-trash-alt" id=${num} ></i></span>`;
+        delIcon.style.cursor = 'pointer';
+        contain.appendChild(projecName);
+        contain.appendChild(delIcon);
+        mainProjectChild.appendChild(contain);
+        delIcon.setAttribute('id', num);
+        // delIcon.setAttribute('click',`${delProject(delIcon.id)}`)
+        delIcon.addEventListener('click', () => {
+          delProject(delIcon.id);
+        });
+      // mainProjectChild.innerHTML = `<span id=${num}-p>${title.value}</span> `
+      // + '<span> <i class="fas ml-1 fa-trash-alt" ></i></span>';
+      // mainProjectChild.style.cursor = 'pointer';
+      // mainProjectChild.setAttribute('id', `${num}-p`);
       // mainProjectChild.addEventListener('click', ()=>{
       //   delProject(num);
       // })
