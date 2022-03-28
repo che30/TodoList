@@ -208,11 +208,11 @@ const renderTaskAfterEdit = () => {
 const priorityColor = (priority)=>{
   switch(priority){
     case "HIGH": 
-    return "HIGH"
+    return "#eba5ac"
     case "MEDIUM":
-    return "MEDIUM"
+    return "orange"
     case "LOW":
-    return "LOW"
+    return "yellow"
     default:
     return "LOW"
   }
@@ -270,8 +270,9 @@ const renderTask = () => {
       project.tasks.forEach(task => {
         const flexContain = document.createElement('div');
         flexContain.classList.add('d-flex', 'align-items-center', 'w-50',
-          'mx-auto', 'justify-content-between',`${priorityColor(task.priority)}`,
+          'mx-auto', 'justify-content-between',
           'my-2','px-3');
+          flexContain.style.backgroundColor = `${priorityColor(task.priority)}`
         flexContain.style.borderRadius = "10px";
         const holdRadiobtnandDes = document.createElement('div');
         holdRadiobtnandDes.classList.add('d-flex', 'align-items-center');
