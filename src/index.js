@@ -19,8 +19,8 @@ const cancelbtn = document.getElementById('cancel');
 const submitTwo = document.getElementById('submitTwo');
 const taskProgressSection = document.createElement('section');
 const editForm = document.getElementById('editTaskForm');
-let rawDescription = document.getElementById('editDescription');
-let rawDate = document.getElementById('Editdate');
+const rawDescription = document.getElementById('editDescription');
+const rawDate = document.getElementById('Editdate');
 const submitBtn = document.getElementById('submitForEdit');
 projectsContainer.appendChild(mainContainer);
 
@@ -39,7 +39,21 @@ const firstRender = () => {
   defaultProject.setAttribute('id', 'default-project');
   mainContainer.appendChild(defaultProject);
 };
-
+const retrieveLocalStorage = () => JSON.parse(localStorage.getItem('projects'));
+const resetLocalStorage = (projects) => {
+  localStorage.setItem('projects', JSON.stringify(projects));
+};
+const delProject = (id) => {
+  const projects = retrieveLocalStorage();
+  projects.map((elt, index) => {
+    if (elt.number === Number(id)) {
+      projects.splice(index, 1);
+      resetLocalStorage(projects);
+      document.getElementById(id).parentNode.remove();
+    }
+    return true;
+  });
+};
 // Adding a new Project
 submitOne.addEventListener('click', () => {
   const title = document.getElementById('title');
@@ -49,19 +63,15 @@ submitOne.addEventListener('click', () => {
       const newProject = new Project(title.value, 1);
 
       newProject.storeProject();
-      // Appending Newly created Project
       const mainProjectChild = document.createElement('div');
-    //   mainProjectChild.innerHTML = `<span id="1-p">${title.value}</span> `
-    //  + '<span> <i class="fas ml-1 fa-trash-alt" ></i></span>';
-    //   mainProjectChild.style.cursor = 'pointer';
       const contain = document.createElement('div');
       contain.classList.add('d-flex', 'justify-content-center');
       const projecName = document.createElement('div');
       projecName.innerHTML = title.value;
       projecName.style.cursor = 'pointer';
-      projecName.setAttribute('id', `1-p`);
+      projecName.setAttribute('id', '1-p');
       const delIcon = document.createElement('div');
-      delIcon.innerHTML = `<span> <i class="fas ml-1 fa-trash-alt" id=1 ></i></span>`;
+      delIcon.innerHTML = '<span> <i class="fas ml-1 fa-trash-alt" id=1 ></i></span>';
       delIcon.style.cursor = 'pointer';
       contain.appendChild(projecName);
       contain.appendChild(delIcon);
@@ -78,55 +88,26 @@ submitOne.addEventListener('click', () => {
       newProject.storeProject();
 
       const mainProjectChild = document.createElement('div');
-        const contain = document.createElement('div');
-        contain.classList.add('d-flex', 'justify-content-center');
-        const projecName = document.createElement('div');
-        projecName.innerHTML = title.value;
-        projecName.style.cursor = 'pointer';
-        projecName.setAttribute('id', `${num}-p`);
-        const delIcon = document.createElement('div');
-        delIcon.innerHTML = `<span> <i class="fas ml-1 fa-trash-alt" id=${num} ></i></span>`;
-        delIcon.style.cursor = 'pointer';
-        contain.appendChild(projecName);
-        contain.appendChild(delIcon);
-        mainProjectChild.appendChild(contain);
-        delIcon.setAttribute('id', num);
-        // delIcon.setAttribute('click',`${delProject(delIcon.id)}`)
-        delIcon.addEventListener('click', () => {
-          delProject(delIcon.id);
-        });
-      // mainProjectChild.innerHTML = `<span id=${num}-p>${title.value}</span> `
-      // + '<span> <i class="fas ml-1 fa-trash-alt" ></i></span>';
-      // mainProjectChild.style.cursor = 'pointer';
-      // mainProjectChild.setAttribute('id', `${num}-p`);
-      // mainProjectChild.addEventListener('click', ()=>{
-      //   delProject(num);
-      // })
-      // title.value = '';
+      const contain = document.createElement('div');
+      contain.classList.add('d-flex', 'justify-content-center');
+      const projecName = document.createElement('div');
+      projecName.innerHTML = title.value;
+      projecName.style.cursor = 'pointer';
+      projecName.setAttribute('id', `${num}-p`);
+      const delIcon = document.createElement('div');
+      delIcon.innerHTML = `<span> <i class="fas ml-1 fa-trash-alt" id=${num} ></i></span>`;
+      delIcon.style.cursor = 'pointer';
+      contain.appendChild(projecName);
+      contain.appendChild(delIcon);
+      mainProjectChild.appendChild(contain);
+      delIcon.setAttribute('id', num);
+      delIcon.addEventListener('click', () => {
+        delProject(delIcon.id);
+      });
       mainContainer.appendChild(mainProjectChild);
     }
   }
 });
-const retrieveLocalStorage = () => JSON.parse(localStorage.getItem('projects'));
-const delProject = (id) => {
-  const projects = retrieveLocalStorage();
-  projects.map((elt, index) => {
-    if (elt.number === Number(id)) {
-      projects.splice(index, 1);
-      resetLocalStorage(projects);
-      // localStorage.setItem('projects', JSON.stringify(projects));
-      document.getElementById(id).parentNode.remove();
-      // const mainc = document.querySelector('.main__project__container').childNodes;
-      // mainc.forEach((elt, index) => {
-      //   if (index > 0) {
-      //     elt.innerHTML = '';
-      //   }
-      // });
-      // rerenderProjects();
-    }
-    return true;
-  });
-};
 
 const rerenderProjects = () => {
   editForm.classList.add('d-none');
@@ -148,7 +129,6 @@ const rerenderProjects = () => {
         contain.appendChild(delIcon);
         mainProjectChild.appendChild(contain);
         delIcon.setAttribute('id', element.number);
-        // delIcon.setAttribute('click',`${delProject(delIcon.id)}`)
         delIcon.addEventListener('click', () => {
           delProject(delIcon.id);
         });
@@ -185,10 +165,86 @@ const getActiveTask = () => {
   const activeTask = JSON.parse(localStorage.getItem('active'));
   return activeTask;
 };
-const resetLocalStorage = (projects) =>{
-  localStorage.setItem('projects', JSON.stringify(projects))
-}
+const renderTaskAfterEdit = () => {
+  editForm.classList.add('d-none');
+  const projects = retrieveLocalStorage();
+  let activeProject = getActiveTask();
+  if (activeProject === null) {
+    activeProject = 0;
+  }
+  const taskContainer = document.createElement('div');
+  projects.forEach(project => {
+    if (project.tasks.length !== 0 && project.number === Number(activeProject)) {
+      project.tasks.forEach(task => {
+        const flexContain = document.createElement('div');
+        flexContain.classList.add('d-flex', 'align-items-center', 'w-50',
+          'mx-auto', 'justify-content-between');
+        const holdRadiobtnandDes = document.createElement('div');
+        holdRadiobtnandDes.classList.add('d-flex', 'align-items-center');
+        const taskDate = document.createElement('div');
+        taskDate.innerHTML = task.date;
+        const testTask = document.createElement('div');
+        const edit = document.createElement('div');
+        edit.innerHTML = '<i class="fas fa-edit"></i>';
+        edit.style.cursor = 'pointer';
+        testTask.innerHTML = task.description;
+        testTask.style.cursor = 'pointer';
+        testTask.innerHTML = task.description;
+        testTask.style.fontSize = '2rem';
+        testTask.classList.add('text-center');
+        const radio = document.createElement('input');
+        radio.setAttribute('type', 'radio');
+        holdRadiobtnandDes.appendChild(radio);
+        holdRadiobtnandDes.appendChild(testTask);
+        flexContain.appendChild(holdRadiobtnandDes);
+        flexContain.appendChild(taskDate);
+        flexContain.appendChild(edit);
+        taskContainer.appendChild(flexContain);
+      });
+      taskSection.appendChild(taskContainer);
+    }
+  });
+};
+const editTak = (element, date) => {
+  let taskPriority = document.getElementById('Taskpriorities');
+  taskPriority = taskPriority.options[taskPriority.selectedIndex].value;
+  let activeT = getActiveTask();
+  let activeP = retrieveLocalStorage();
+  const unmodified = activeP;
+  rawDescription.value = element;
+  rawDate.value = date;
+  body.appendChild(editForm);
+  plusBtn.style.left = '300px';
+  editForm.classList.remove('d-none');
+  submitBtn.addEventListener('click', () => {
+    if (activeT === 'd' || activeT === null) {
+      activeT = 0;
+    }
 
+    activeP.forEach(project => {
+      if (project.number === Number(activeT)) {
+        activeP = project;
+      }
+    });
+    const temp = activeP.tasks;
+    temp.forEach((task, index) => {
+      if (task.description === element) {
+        temp[index].description = rawDescription.value;
+        temp[index].date = rawDate.value;
+        temp[index].priority = taskPriority;
+      }
+    });
+    unmodified[activeT].tasks = temp;
+    resetLocalStorage(unmodified);
+    taskSection.childNodes.forEach((node, index) => {
+      if (index >= 1) {
+        node.innerHTML = '';
+      }
+    });
+    renderTaskAfterEdit();
+    editForm.classList.add('d-none');
+  });
+};
 const renderTask = () => {
   editForm.classList.add('d-none');
   const projects = retrieveLocalStorage();
@@ -201,17 +257,16 @@ const renderTask = () => {
     if (project.tasks.length !== 0 && project.number === Number(activeProject)) {
       project.tasks.forEach(task => {
         const flexContain = document.createElement('div');
-        flexContain.classList.add('d-flex', 'align-items-center', 'bg-info', 'w-50',
-         'mx-auto','justify-content-between');
+        flexContain.classList.add('d-flex', 'align-items-center', 'w-50',
+          'mx-auto', 'justify-content-between');
         const holdRadiobtnandDes = document.createElement('div');
-        holdRadiobtnandDes.classList.add('d-flex','align-items-center');
+        holdRadiobtnandDes.classList.add('d-flex', 'align-items-center');
         const taskDate = document.createElement('div');
         taskDate.innerHTML = task.date;
         const testTask = document.createElement('div');
         const edit = document.createElement('div');
-        edit.innerHTML = '<i class="fas fa-edit"></i>'
+        edit.innerHTML = '<i class="fas fa-edit"></i>';
         edit.style.cursor = 'pointer';
-        // edit.classList.add('ml-5')
         testTask.innerHTML = task.description;
         testTask.style.cursor = 'pointer';
         testTask.innerHTML = task.description;
@@ -222,60 +277,18 @@ const renderTask = () => {
         holdRadiobtnandDes.appendChild(radio);
         holdRadiobtnandDes.appendChild(testTask);
         flexContain.appendChild(holdRadiobtnandDes);
-        // flexContain.appendChild(testTask);
         flexContain.appendChild(taskDate);
         flexContain.appendChild(edit);
         taskContainer.appendChild(flexContain);
-        edit.addEventListener('click', ()=>{
+        edit.addEventListener('click', () => {
           editTak(testTask.innerHTML, taskDate.innerHTML);
-        })
+        });
       });
       taskSection.appendChild(taskContainer);
     }
   });
 };
-const editTak = (element, date) =>{
-  let taskPriority = document.getElementById('Taskpriorities');
-  taskPriority = taskPriority.options[taskPriority.selectedIndex].value;
-  let activeT = getActiveTask();
-  let activeP = retrieveLocalStorage();
-  let unmodified = activeP;
-  rawDescription.value = element;
-  rawDate.value = date
-  body.appendChild(editForm);
-  plusBtn.style.left = '300px';
-  // plusBtn.style.marginTop = '100px';
-  editForm.classList.remove('d-none');
-  submitBtn.addEventListener('click', ()=>{
-    if(activeT === 'd' || activeT === null ){
-      activeT = 0;
-    }
-    
-    activeP.forEach(project =>{
-      if(project.number === Number(activeT)){
-        activeP = project;
-      }
-    })
-    let temp = activeP.tasks
-    temp.forEach((task, index) =>{
-      if(task.description === element){
-        temp[index].description = rawDescription.value;
-        temp[index].date = rawDate.value;
-        temp[index].priority = taskPriority;
-      }
-    });
-    unmodified[activeT].tasks = temp;
-    console.log(unmodified);
-    resetLocalStorage(unmodified);
-    taskSection.childNodes.forEach((node, index) => {
-      if (index >= 1) {
-        node.innerHTML = '';
-      }
-    });
-    renderTask();
-    editForm.classList.add('d-none');
-  })
-}
+
 const saveActiveProject = (active) => {
   localStorage.setItem('active', JSON.stringify(active));
 };
@@ -330,10 +343,10 @@ cancelbtn.addEventListener('click', () => {
   taskForm.classList.add('d-none');
   plusBtn.style.left = '630px';
 });
-document.getElementById('cancelTwo').addEventListener('click',  ()=>{
+document.getElementById('cancelTwo').addEventListener('click', () => {
   editForm.classList.remove('d-block');
   editForm.classList.add('d-none');
-})
+});
 const storeDefaultProject = () => {
   const store = retrieveLocalStorage();
   if (store === null) {
@@ -343,7 +356,6 @@ const storeDefaultProject = () => {
 };
 
 submitTwo.addEventListener('click', () => {
-  // editForm.classList.add('d-none');
   taskSection.childNodes.forEach((elt, index) => {
     if (index >= 1) {
       elt.innerHTML = '';
@@ -358,7 +370,7 @@ submitTwo.addEventListener('click', () => {
   taskPriority = taskPriority.options[taskPriority.selectedIndex].value;
   if (taskDiscription.value !== ''
    && taskDate.value !== '') {
-     console.log('succesful');
+    console.log('succesful');
     const newTask = new Task(taskDiscription.value,
       taskDate.value,
       taskPriority, activeProject);
@@ -367,13 +379,11 @@ submitTwo.addEventListener('click', () => {
       tasks.push(newTask);
       allprojects[0].tasks = tasks;
       resetLocalStorage(allprojects);
-      // localStorage.setItem('projects', JSON.stringify(allprojects));
     } else {
       tasks = allprojects[activeProject].tasks;
       tasks.push(newTask);
       allprojects[activeProject].tasks = tasks;
       resetLocalStorage(allprojects);
-      // localStorage.setItem('projects', JSON.stringify(allprojects));
     }
     taskDiscription.value = '';
     taskDate.value = '';
@@ -388,11 +398,9 @@ taskSection.addEventListener('click', (e) => {
     allcheckedinputs.forEach(elt => {
       trashContainer.push(elt.nextSibling.innerHTML);
     });
-    // console.log(trashContainer);
     const retrievedTask = getActiveTask() || 0;
     let storedProjects = retrieveLocalStorage();
     const unmodifiedProjects = storedProjects;
-    // let modified = storedProjects;
 
     storedProjects.forEach(project => {
       if ((project.number === Number(retrievedTask))) {
@@ -434,7 +442,6 @@ taskSection.addEventListener('click', (e) => {
       message.innerHTML = `${countActiveProjects} tasks remaining `;
       trash.addEventListener('click', () => {
         resetLocalStorage(unmodifiedProjects);
-        // localStorage.setItem('projects', JSON.stringify(unmodifiedProjects));
         taskSection.childNodes.forEach((node, index) => {
           if (index > 1) {
             node.innerHTML = '';
@@ -450,4 +457,3 @@ document.addEventListener('DOMContentLoaded',
   firstRender(),
   rerenderProjects(),
   rerenderDefaultTask(), taskbutton(), renderTask());
-
