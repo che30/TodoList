@@ -9,7 +9,6 @@ const mainContainer = document.createElement('div');
 mainContainer.classList.add('main__project__container');
 const defaultProject = document.createElement('div');
 const taskSection = document.getElementById('task-section');
-// taskSection.classList.add('task__section','bg-success');
 const body = document.querySelector('body');
 const submitOne = document.getElementById('submit-one');
 const plusBtnSection = document.createElement('section');
